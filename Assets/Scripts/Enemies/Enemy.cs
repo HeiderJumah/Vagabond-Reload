@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyTypes enemyType;
     private NavMeshAgent agent;
     private Transform playerTransform;
+    private Vector3 originalPosition;
 
     [Header("bools")]
     private bool isDead = false;
@@ -55,18 +56,28 @@ public class Enemy : MonoBehaviour
         else
         {
             // go back to idle state and original position
-            agent.isStopped = true;
+            if (Vector3.Distance(transform.position, originalPosition) > 0.1f)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(originalPosition);
+            }
+            else
+            {
+                agent.isStopped = true;
+            }
         }
     }
 
-    private void RotateTowardsPlayer()
-    {
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
-        direction.y = 0; // Keep only the horizontal direction
 
-        if (direction != Vector3.zero)
+    private void Rotate()
+    {
+        Vector3 velocity = agent.velocity;
+
+        velocity.y = 0; // Keep only the horizontal direction
+
+        if (velocity != Vector3.zero)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            Quaternion lookRotation = Quaternion.LookRotation(velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
@@ -75,6 +86,9 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        // store the initial position
+        originalPosition = transform.position; 
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -90,6 +104,6 @@ public class Enemy : MonoBehaviour
             return;
         }
         TargetPlayer();
-        RotateTowardsPlayer();
+        Rotate();
     }
 }
