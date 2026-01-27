@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent;
     private Transform playerTransform;
     private Vector3 originalPosition;
+    private EnemyAnimation enemyAnimation;
 
     [Header("bools")]
     private bool isDead = false;
@@ -22,7 +23,8 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+        enemyAnimation = GetComponent<EnemyAnimation>();
+
         health = enemyType.health;
         agent.speed = enemyType.speed;
         agent.stoppingDistance = enemyType.attackRange;
@@ -46,11 +48,13 @@ public class Enemy : MonoBehaviour
                 // Set the player's position as the destination for the NavMeshAgent
                 agent.isStopped = false;
                 agent.SetDestination(playerTransform.position);
+                enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
             }
             else
             {
                 // Attack the player
                 agent.isStopped = true;
+                enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
             }
         }
         else
@@ -60,10 +64,13 @@ public class Enemy : MonoBehaviour
             {
                 agent.isStopped = false;
                 agent.SetDestination(originalPosition);
+                enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
             }
             else
             {
                 agent.isStopped = true;
+                enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
+
             }
         }
     }
