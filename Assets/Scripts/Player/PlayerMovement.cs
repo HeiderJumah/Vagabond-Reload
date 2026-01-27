@@ -166,11 +166,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void UpdateCamera()
     {
-        // Set camera position above the player
-        Vector3 camPos = transform.position + new Vector3(0f, 10f, 0f);
+        // Set camera position above the player and slightly behind
+        Vector3 camPos = transform.position + new Vector3(0f, 10f, -3f);
         // Maintain camera's current horizontal position
         mainCamera.transform.position = camPos;
-        // Set camera rotation to look directly down
-        mainCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        // Set camera rotation to look down in a fixed angle
+        mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
     }
 }
