@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minPitch = 45f;
     [SerializeField] private float maxPitch = 65f;
     [SerializeField] private float cameraSmoothRotate = 10f;
+    public bool lockCamera = false;
 
 
     private float cameraYaw;
@@ -59,7 +60,12 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGrounded();
         MovePlayer();
-        UpdateCamera();
+
+        if (lockCamera)
+             UpdateFixedCamera();
+        else
+             UpdateCamera();
+
         RotatePlayer();
     }
     /// <summary>
@@ -230,20 +236,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
+
     /// <summary>
     /// Update the camera position to follow the player from above
     /// </summary>
     private void UpdateCamera()
     {
-        /* // Old fixed camera position code
-        // Set camera position above the player and slightly behind
-        Vector3 camPos = transform.position + new Vector3(0f, 8f, -3f);
-        // Maintain camera's current horizontal position
-        mainCamera.transform.position = camPos;
-        // Set camera rotation to look down in a fixed angle
-        mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
-        */
-
+        // Additional camera rotation from keyboard input
+        float keyboardCameraRotate = 0f;
+        // Rotate camera based on keyboard input
+        var keyboard = Keyboard.current;
+        if (keyboard != null)
+        {
+            if (keyboard.qKey.isPressed) keyboardCameraRotate -= 1f;
+            if (keyboard.eKey.isPressed) keyboardCameraRotate += 1f;
+        }
 
         // Rotate camera based on mouse button drag
         if (Mouse.current != null && Mouse.current.rightButton.isPressed)
@@ -256,6 +264,8 @@ public class PlayerMovement : MonoBehaviour
             // Clamp camera angle
             cameraAngle = Mathf.Clamp(cameraAngle, minPitch, maxPitch);
         }
+        // Apply keyboard rotation to camera yaw
+        cameraYaw += keyboardCameraRotate * cameraRotationSpeed * Time.fixedDeltaTime;
         // Calculate rotation based on yaw and angle
         Quaternion rotation = Quaternion.Euler(cameraAngle, cameraYaw, 0f);
         // Calculate camera offset from player
@@ -266,5 +276,17 @@ public class PlayerMovement : MonoBehaviour
         mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * cameraSmoothRotate);
 
        // mainCamera.transform.rotation = rotation;
+    }
+
+    private void UpdateFixedCamera()
+    {
+        // Old fixed camera position code // Might be used for a fixed camera mode in the future
+        // I'm planning stupid things again
+        // Set camera position above the player and slightly behind
+        Vector3 camPos = transform.position + new Vector3(0f, 8f, -3f);
+        // Maintain camera's current horizontal position
+        mainCamera.transform.position = camPos;
+        // Set camera rotation to look down in a fixed angle
+        mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
     }
 }
