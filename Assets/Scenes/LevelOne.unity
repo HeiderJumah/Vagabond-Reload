@@ -1332,6 +1332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vagabond
       objectReference: {fileID: 0}
+    - target: {fileID: 3314159071854637392, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: cameraZoom
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.545615

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,24 +26,28 @@ public class PlayerMovement : MonoBehaviour
     private bool isDodging = false;
 
     [Header("CameraSettings")]
-    [SerializeField] private float cameraHeight = 5f;
-    [SerializeField] private float cameraDistance = 3f;
-    [SerializeField] private float cameraAngle = 60f;
-    [SerializeField] private float cameraRotationSpeed = 70f;
-    [SerializeField] private float minPitch = 45f;
+    [SerializeField] private float cameraHeight = 5f; // default camera height
+    [SerializeField] private float cameraDistance = 3f; // default camera distance
+    [SerializeField] private float cameraAngle = 60f; // default camera angle
+    [SerializeField] private float cameraRotationSpeed = 70f; // camera rotation speed
+    // clamp camera angle movement (up and down)
+    [SerializeField] private float minPitch = 45f; 
     [SerializeField] private float maxPitch = 65f;
-    [SerializeField] private float cameraSmoothRotate = 10f;
+    [SerializeField] private float cameraSmoothRotate = 10f; // smoothness factor for camera rotation
+    [SerializeField] private float cameraZoom = 1f; // camera zoom sensitivity / zoom speed
     public bool lockCamera = false;
+    private float scrollCamera;
 
 
-    private float cameraYaw;
+    private float cameraYaw; 
 
     void Start()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
-
+        // set initial camera position for smooth scrolling 
+        scrollCamera = cameraDistance; 
         // Lock cursor to the game window
         Cursor.lockState = CursorLockMode.Confined;
     }
@@ -253,8 +258,18 @@ public class PlayerMovement : MonoBehaviour
             if (keyboard.eKey.isPressed) keyboardCameraRotate += 1f;
         }
 
+        if(Mouse.current == null) return;
+        // Camera zoom with mouse wheel 
+        Vector2 scroll = Mouse.current.scroll.ReadValue();
+
+        scrollCamera -= scroll.y * cameraZoom;
+        // clamp camera distance so camera doesnt go inside player or too far away
+        scrollCamera = Mathf.Clamp(scrollCamera, 2f, 5f);
+        // scroll camera distance smoothly 
+        cameraDistance = Mathf.Lerp(cameraDistance, scrollCamera, Time.deltaTime * 4f);
+
         // Rotate camera based on mouse button drag
-        if (Mouse.current != null && Mouse.current.rightButton.isPressed)
+        if (Mouse.current.rightButton.isPressed)
         {
             // Get mouse delta movement
             Vector3 mouseDelta = Mouse.current.delta.ReadValue();
