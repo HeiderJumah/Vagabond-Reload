@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,21 +8,39 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Information")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private float dodgeCooldown = 1f;
+    [SerializeField] private float dodgeSpeed = 2f;
     [SerializeField] private LayerMask groundLayer;
 
     [Header("References")]
     private Camera mainCamera;
     private Vector3 input;
     private Rigidbody rb;
+    private PlayerAnimation playerAnimation;
 
     [Header("bools")]
     private bool isJumping = false;
     private bool isGrounded = false;
+    private bool canDodge = true;
+    private bool isDodging = false;
+
+    [Header("CameraSettings")]
+    [SerializeField] private float cameraHeight = 5f;
+    [SerializeField] private float cameraDistance = 3f;
+    [SerializeField] private float cameraAngle = 60f;
+    [SerializeField] private float cameraRotationSpeed = 70f;
+    [SerializeField] private float minPitch = 45f;
+    [SerializeField] private float maxPitch = 65f;
+    [SerializeField] private float cameraSmoothRotate = 10f;
+
+
+    private float cameraYaw;
 
     void Start()
     {
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        playerAnimation = GetComponent<PlayerAnimation>();
 
         // Lock cursor to the game window
         Cursor.lockState = CursorLockMode.Confined;
@@ -66,21 +85,80 @@ public class PlayerMovement : MonoBehaviour
         // Handle jump input
         if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping)
         {
-            isJumping = true;
+            StartCoroutine(JumpCoroutine());
+        }
+
+        if (keyboard.leftShiftKey.wasPressedThisFrame)
+        {
+            Dodge();
         }
 
         // Handle escape key to unlock cursor
         if (keyboard.escapeKey.wasPressedThisFrame)
         {
-            if (Cursor.lockState != CursorLockMode.None)
+           Cursor.lockState = Cursor.lockState != CursorLockMode.None ?  CursorLockMode.None : CursorLockMode.Confined;
+        }
+    }
+    private void Dodge()
+    {
+        // Dodge in the direction of movement
+        if (isGrounded && !isJumping && canDodge)
+        {
+            Vector3 dodgeDirection;
+
+            if (input == Vector3.zero)
             {
-                Cursor.lockState = CursorLockMode.None;
+                dodgeDirection = -transform.forward;
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Confined;
+                dodgeDirection = transform.right * input.x + transform.forward * input.z;
             }
+
+            dodgeDirection.Normalize();
+            canDodge = false;
+            isDodging = true;
+            rb.linearVelocity = new Vector3(dodgeDirection.x * dodgeSpeed, rb.linearVelocity.y, dodgeDirection.z * dodgeSpeed);
+            //rb.AddForce(dodgeDirection * moveSpeed * 1.5f, ForceMode.Impulse);
+            // Set dodge animation for the player dodge direction
+            if (Mathf.Abs(dodgeDirection.x) > Mathf.Abs(dodgeDirection.z))
+            {
+                // Dodge left or right
+                playerAnimation.SetAnimationState(dodgeDirection.x > 0 ? PlayerAnimationState.DodgeRight : PlayerAnimationState.DodgeLeft);
+            }
+            else
+            {
+                // Dodge forward or backward
+                playerAnimation.SetAnimationState(dodgeDirection.z > 0 ? PlayerAnimationState.DodgeUp : PlayerAnimationState.DodgeBackwards);
+            }
+
+            StartCoroutine(DodgeCooldownCoroutine());
+
         }
+
+    }
+
+    private IEnumerator JumpCoroutine()
+    {
+        isJumping = true;
+        playerAnimation.SetAnimationState(PlayerAnimationState.Jump);
+        yield return new WaitForSeconds(0.2f); // Small delay to sync with animation
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.1f); // Allow some time before checking for grounded state
+
+        yield return new WaitUntil(() => isGrounded);
+        isJumping = false;
+    }
+
+    private IEnumerator DodgeCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(0.8f); // Duration of dodge
+        isDodging = false;
+        Debug.Log(isDodging);
+        yield return new WaitForSeconds(dodgeCooldown);
+        canDodge = true;
+        Debug.Log(canDodge);
     }
 
     /// <summary>
@@ -88,32 +166,23 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if(input != Vector3.zero)
+        if (isDodging) return; // Skip movement during dodge
+        if (input != Vector3.zero)
         {
             // Move the player
-            Vector3 moveDirection = input * moveSpeed * Time.fixedDeltaTime;
+         //   Vector3 moveDirection = input * moveSpeed * Time.fixedDeltaTime;
+           // transform.position += moveDirection;
+           Vector3 moveDirection = transform.right * input.x + transform.forward * input.z;
+            moveDirection *= moveSpeed * Time.fixedDeltaTime;
             transform.position += moveDirection;
+            if (isGrounded && !isJumping)
+                playerAnimation.SetAnimationState(PlayerAnimationState.Walk);
         }
         else 
         {
             // Idle state
+            playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
         }
-
-        if (isJumping)
-        {
-            Jump();
-        }
-    }
-    /// <summary>
-    /// Handles player jumping 
-    /// </summary>
-    private void Jump()
-    { 
-        if (rb != null)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-        isJumping = false;
     }
     /// <summary>
     /// always checks if the player is grounded
@@ -122,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Raycast down to check if the player is grounded
         Ray ray = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(ray, 1.1f, groundLayer))
+        if (Physics.Raycast(ray, 0.5f, groundLayer))
         {
             isGrounded = true;
         }
@@ -166,11 +235,36 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void UpdateCamera()
     {
+        /* // Old fixed camera position code
         // Set camera position above the player and slightly behind
-        Vector3 camPos = transform.position + new Vector3(0f, 10f, -3f);
+        Vector3 camPos = transform.position + new Vector3(0f, 8f, -3f);
         // Maintain camera's current horizontal position
         mainCamera.transform.position = camPos;
         // Set camera rotation to look down in a fixed angle
         mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
+        */
+
+
+        // Rotate camera based on mouse button drag
+        if (Mouse.current != null && Mouse.current.rightButton.isPressed)
+        {
+            // Get mouse delta movement
+            Vector3 mouseDelta = Mouse.current.delta.ReadValue();
+            // Adjust camera yaw and angle based on mouse movement
+            cameraYaw += mouseDelta.x * cameraRotationSpeed * Time.fixedDeltaTime;
+            cameraAngle -= mouseDelta.y * cameraRotationSpeed * Time.fixedDeltaTime;
+            // Clamp camera angle
+            cameraAngle = Mathf.Clamp(cameraAngle, minPitch, maxPitch);
+        }
+        // Calculate rotation based on yaw and angle
+        Quaternion rotation = Quaternion.Euler(cameraAngle, cameraYaw, 0f);
+        // Calculate camera offset from player
+        Vector3 offset = rotation * new Vector3(0f, 0f, -cameraDistance) + Vector3.up * cameraHeight;
+        // Set camera position
+        mainCamera.transform.position = transform.position + offset;
+        // Set camera rotation to look at the player smoothly
+        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * cameraSmoothRotate);
+
+       // mainCamera.transform.rotation = rotation;
     }
 }
