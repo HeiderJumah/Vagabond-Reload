@@ -1333,6 +1333,10 @@ PrefabInstance:
       value: Vagabond
       objectReference: {fileID: 0}
     - target: {fileID: 3314159071854637392, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314159071854637392, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: cameraZoom
       value: 1
       objectReference: {fileID: 0}

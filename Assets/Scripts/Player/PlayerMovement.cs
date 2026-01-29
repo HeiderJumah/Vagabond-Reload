@@ -130,17 +130,17 @@ public class PlayerMovement : MonoBehaviour
             canDodge = false;
             isDodging = true;
             rb.linearVelocity = new Vector3(dodgeDirection.x * dodgeSpeed, rb.linearVelocity.y, dodgeDirection.z * dodgeSpeed);
-            //rb.AddForce(dodgeDirection * moveSpeed * 1.5f, ForceMode.Impulse);
             // Set dodge animation for the player dodge direction
-            if (Mathf.Abs(dodgeDirection.x) > Mathf.Abs(dodgeDirection.z))
+            Vector3 localDodgeDirection = transform.InverseTransformDirection(dodgeDirection);
+            if (Mathf.Abs(localDodgeDirection.x) > Mathf.Abs(localDodgeDirection.z))
             {
                 // Dodge left or right
-                playerAnimation.SetAnimationState(dodgeDirection.x > 0 ? PlayerAnimationState.DodgeRight : PlayerAnimationState.DodgeLeft);
+                playerAnimation.SetAnimationState(localDodgeDirection.x > 0 ? PlayerAnimationState.DodgeRight : PlayerAnimationState.DodgeLeft);
             }
             else
             {
                 // Dodge forward or backward
-                playerAnimation.SetAnimationState(dodgeDirection.z > 0 ? PlayerAnimationState.DodgeUp : PlayerAnimationState.DodgeBackwards);
+                playerAnimation.SetAnimationState(localDodgeDirection.z > 0 ? PlayerAnimationState.DodgeUp : PlayerAnimationState.DodgeBackwards);
             }
 
             StartCoroutine(DodgeCooldownCoroutine());
@@ -187,7 +187,20 @@ public class PlayerMovement : MonoBehaviour
             moveDirection *= moveSpeed * Time.fixedDeltaTime;
             transform.position += moveDirection;
             if (isGrounded && !isJumping)
-                playerAnimation.SetAnimationState(PlayerAnimationState.Walk);
+            {
+                // Set dodge animation for the player dodge direction
+                Vector3 localMoveDirection = transform.InverseTransformDirection(moveDirection.normalized); 
+                if (Mathf.Abs(localMoveDirection.x) > Mathf.Abs(localMoveDirection.z))
+                {
+                    // Move left or right
+                    playerAnimation.SetAnimationState(localMoveDirection.x > 0 ? PlayerAnimationState.RightStrife : PlayerAnimationState.LeftStrife);
+                }
+                else
+                {
+                    // Move forward or backward
+                    playerAnimation.SetAnimationState(localMoveDirection.z > 0 ? PlayerAnimationState.Walk : PlayerAnimationState.BackwardsWalk);
+                }
+            }
         }
         else 
         {
