@@ -7,8 +7,11 @@ namespace Vagabond.Systems.UI
     {
         public void OnStartGame()
         {
+            //Debug.Log("[TitleScreen] Start Game");
+            //GameManager.Instance.GameStateManager.ChangeState(GameState.Loading);
+
             Debug.Log("[TitleScreen] Start Game");
-            GameManager.Instance.GameStateManager.ChangeState(GameState.Loading);
+            GameManager.Instance.GameStateManager.ChangeState(GameState.InGame);
         }
 
         public void OnQuitGame()
