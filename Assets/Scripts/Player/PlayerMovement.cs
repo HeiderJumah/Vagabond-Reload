@@ -18,12 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 input;
     private Rigidbody rb;
     private PlayerAnimation playerAnimation;
+    private Coroutine idleCoroutine;
 
     [Header("bools")]
     private bool isJumping = false;
     private bool isGrounded = false;
     private bool canDodge = true;
     private bool isDodging = false;
+    private bool isIdleRoutineRunning;
 
     [Header("CameraSettings")]
     [SerializeField] private float cameraHeight = 5f; // default camera height
@@ -37,9 +39,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float cameraZoom = 1f; // camera zoom sensitivity / zoom speed
     public bool lockCamera = false;
     private float scrollCamera;
+    private float cameraYaw;
 
-
-    private float cameraYaw; 
+    private readonly PlayerAnimationState[] idleVarients =
+    {
+        PlayerAnimationState.IdleTwo,
+        PlayerAnimationState.IdleThree,
+        PlayerAnimationState.IdleFour
+    };
 
     void Start()
     {
@@ -115,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
         // Dodge in the direction of movement
         if (isGrounded && !isJumping && canDodge)
         {
+            // cancel all IdleAnimations
+            CancelIdle();
             Vector3 dodgeDirection;
 
             if (input == Vector3.zero)
@@ -151,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator JumpCoroutine()
     {
+        // Cancel all idle Animations
+        CancelIdle();
         isJumping = true;
         playerAnimation.SetAnimationState(PlayerAnimationState.Jump);
         yield return new WaitForSeconds(0.2f); // Small delay to sync with animation
@@ -180,6 +191,8 @@ public class PlayerMovement : MonoBehaviour
         if (isDodging) return; // Skip movement during dodge
         if (input != Vector3.zero)
         {
+            // cancel all idle Animations
+            CancelIdle();
             // Move the player
          //   Vector3 moveDirection = input * moveSpeed * Time.fixedDeltaTime;
            // transform.position += moveDirection;
@@ -205,8 +218,52 @@ public class PlayerMovement : MonoBehaviour
         else 
         {
             // Idle state
-            playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
+            if (isGrounded && !isJumping && !isDodging && !isIdleRoutineRunning)
+            {
+                playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
+                isIdleRoutineRunning = true;
+                idleCoroutine = StartCoroutine(IdleAnimationRoutine());
+            }
         }
+    }
+
+    private IEnumerator IdleAnimationRoutine()
+    {
+        // wait a few seconds before playing random idle animation
+        yield return new WaitForSeconds(Random.Range(5f,15f));
+
+        // check if still idle
+        if (playerAnimation.CurrentState != PlayerAnimationState.Idle)
+        {
+            isIdleRoutineRunning = false;
+            yield break;
+        }
+
+        // Pick random idle animation
+        PlayerAnimationState randomIdle = GetRandomIdle();
+        playerAnimation.SetAnimationState(randomIdle);
+    }
+    private PlayerAnimationState GetRandomIdle()
+    {
+        return idleVarients[Random.Range(0,idleVarients.Length)];
+    }
+
+    /// <summary>
+    /// animation clip event
+    /// </summary>
+    private void OnRandomIdleEnded()
+    {
+        playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
+        isIdleRoutineRunning = false;
+    }
+    private void CancelIdle()
+    {
+        if(idleCoroutine != null)
+        {
+            StopCoroutine(idleCoroutine);
+            idleCoroutine = null;
+        }
+        isIdleRoutineRunning = false;
     }
     /// <summary>
     /// always checks if the player is grounded
@@ -222,6 +279,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isGrounded = false;
+        }
+        if(!isGrounded)
+        {
+            CancelIdle();
         }
     }
 

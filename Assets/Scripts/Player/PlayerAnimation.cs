@@ -7,6 +7,8 @@ public class PlayerAnimation : MonoBehaviour
     private PlayerAnimationState state;
     // cache hash ids
     private readonly int AnimationStateHash = Animator.StringToHash("AnimState");
+
+    public PlayerAnimationState CurrentState => state;
     private void Awake()
     {
         animator = GetComponent<Animator>();
