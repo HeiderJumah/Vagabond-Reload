@@ -23,7 +23,7 @@ namespace Vagabond.Systems.Input {
             var gsm = GameManager.Instance.GameStateManager;
             if (gsm.CurrentState == GameState.InGame)
             {
-                Time.timeScale = 1f;
+                Time.timeScale = 0f;
                 gsm.ChangeState(GameState.Paused);
             }
             else if (gsm.CurrentState == GameState.Paused)
