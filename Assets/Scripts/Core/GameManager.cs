@@ -58,6 +58,7 @@ namespace Vagabond.Core
         private void Start()
         {
             gameStateManager.ChangeState(GameState.Boot);
+            gameStateManager.ChangeState(GameState.MainMenu);
         }
     }
 }
