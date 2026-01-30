@@ -103,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
         // Handle jump input
         if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping)
         {
+            isJumping = true;
             StartCoroutine(JumpCoroutine());
         }
 
@@ -111,10 +112,27 @@ public class PlayerMovement : MonoBehaviour
             Dodge();
         }
 
+        if (keyboard.digit5Key.wasPressedThisFrame)
+        {
+            HandleEmotes(PlayerAnimationState.EmoteOne);
+        }
+        else if(keyboard.digit6Key.wasPressedThisFrame)
+        {
+            HandleEmotes(PlayerAnimationState.EmoteTwo); 
+        }
+        else if(keyboard.digit7Key.wasPressedThisFrame)
+        {
+            HandleEmotes(PlayerAnimationState.EmoteThree); 
+        }
+        else if(keyboard.digit8Key.wasPressedThisFrame)
+        {
+            HandleEmotes(PlayerAnimationState.EmoteFour); 
+        }
+
         // Handle escape key to unlock cursor
         if (keyboard.escapeKey.wasPressedThisFrame)
         {
-           Cursor.lockState = Cursor.lockState != CursorLockMode.None ?  CursorLockMode.None : CursorLockMode.Confined;
+            Cursor.lockState = Cursor.lockState != CursorLockMode.None ? CursorLockMode.None : CursorLockMode.Confined;
         }
     }
     private void Dodge()
@@ -162,14 +180,13 @@ public class PlayerMovement : MonoBehaviour
     {
         // Cancel all idle Animations
         CancelIdle();
-        isJumping = true;
         playerAnimation.SetAnimationState(PlayerAnimationState.Jump);
         yield return new WaitForSeconds(0.2f); // Small delay to sync with animation
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         yield return new WaitForSeconds(0.1f); // Allow some time before checking for grounded state
 
-        yield return new WaitUntil(() => isGrounded);
+        yield return new WaitUntil(() => isGrounded );
         isJumping = false;
     }
 
@@ -220,6 +237,10 @@ public class PlayerMovement : MonoBehaviour
             // Idle state
             if (isGrounded && !isJumping && !isDodging && !isIdleRoutineRunning)
             {
+                if(playerAnimation.CurrentState == PlayerAnimationState.EmoteOne || playerAnimation.CurrentState == PlayerAnimationState.EmoteTwo
+                    || playerAnimation.CurrentState == PlayerAnimationState.EmoteThree || playerAnimation.CurrentState == PlayerAnimationState.EmoteFour)
+                    return;
+
                 playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
                 isIdleRoutineRunning = true;
                 idleCoroutine = StartCoroutine(IdleAnimationRoutine());
@@ -265,6 +286,15 @@ public class PlayerMovement : MonoBehaviour
         }
         isIdleRoutineRunning = false;
     }
+
+    private void HandleEmotes(PlayerAnimationState emote)
+    {
+        if(playerAnimation.CurrentState != PlayerAnimationState.Idle) 
+            return;
+
+        playerAnimation.SetAnimationState(emote);
+    }
+
     /// <summary>
     /// always checks if the player is grounded
     /// </summary>
@@ -293,6 +323,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // Ensure mouse is available
         if (Mouse.current == null)
+            return;
+        if(playerAnimation.CurrentState == PlayerAnimationState.EmoteOne || playerAnimation.CurrentState == PlayerAnimationState.EmoteTwo
+            || playerAnimation.CurrentState == PlayerAnimationState.EmoteThree || playerAnimation.CurrentState == PlayerAnimationState.EmoteFour)
             return;
 
         // Get mouse position
