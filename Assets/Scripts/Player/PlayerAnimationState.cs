@@ -22,5 +22,11 @@ public enum PlayerAnimationState
     EmoteFour = 17,
     IdleTwo = 18,
     IdleThree = 19,
-    IdleFour = 20
+    IdleFour = 20,
+    RangedAttack = 21,
+    RangedStrong = 22,
+    MagicAttack = 23,
+    MagicStrong = 24,
+    BareHandAttack = 25,
+    BareHandStrong = 26
 }

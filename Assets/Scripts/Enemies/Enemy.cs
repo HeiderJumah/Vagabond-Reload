@@ -6,11 +6,11 @@ public class Enemy : MonoBehaviour
 {
 
     [Header("Stats")]
-    private float health;
+    private float currentHealth;
 
     [Header("References")]
     [SerializeField] private EnemyTypes enemyType;
-    private NavMeshAgent agent;
+   // private NavMeshAgent agent;
     private Transform playerTransform;
     private Vector3 originalPosition;
     private EnemyAnimation enemyAnimation;
@@ -22,12 +22,12 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         enemyAnimation = GetComponent<EnemyAnimation>();
 
-        health = enemyType.health;
-        agent.speed = enemyType.speed;
-        agent.stoppingDistance = enemyType.attackRange;
+        currentHealth = enemyType.health;
+        //agent.speed = enemyType.speed;
+        //agent.stoppingDistance = enemyType.attackRange;
     }
 
 #region Enemy Targeting Behavior
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// Find the player and set as destination
     /// </summary>
-    private void TargetPlayer()
+  /*  private void TargetPlayer()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
@@ -87,10 +87,32 @@ public class Enemy : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
-    }
+    }*/
 
 #endregion
 
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        Debug.Log(currentHealth);
+        Debug.Log($"Taking damage: {damage}, currentHealth before: {currentHealth}");
+        //float healthPercentage = Mathf.Clamp01(currentHealth / enemyType.health);
+
+        if (currentHealth <= 0)
+            Die();
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemy died");
+        enemyAnimation.SetAnimationState(EnemyAnimationState.Death);
+    }
+
+    private void OnDeathEvent()
+    {
+        GameObject.Destroy(this);
+    }
     void Start()
     {
         // store the initial position
@@ -110,7 +132,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        TargetPlayer();
-        Rotate();
+       // TargetPlayer();
+        //Rotate();
     }
 }
