@@ -26,6 +26,9 @@ public class PlayerActions : MonoBehaviour
     public bool isStrongAttack = false;
     public bool canAttack = true;
     public bool isAttacking = false;
+    // helper incase animation event gets skipped unexpectedly
+    [SerializeField] private float maxAttackDuration = 1.2f;
+    private Coroutine attackFailSafe;
 
 
 
@@ -80,6 +83,11 @@ public class PlayerActions : MonoBehaviour
             playerMovement.canJump = false;
             isAttacking = true;
 
+            if(attackFailSafe != null)
+                StopCoroutine(attackFailSafe);
+
+            attackFailSafe = StartCoroutine(AttackFailSafe());
+
             switch (weaponType.attackType)
             {
                 case AttackType.BareHand:
@@ -97,6 +105,30 @@ public class PlayerActions : MonoBehaviour
             }
 
         }
+    }
+
+    private IEnumerator AttackFailSafe()
+    {
+        yield return new WaitForSeconds(maxAttackDuration);
+        ForceEndAttack();
+    }
+
+    private void ForceEndAttack()
+    {
+        isStrongAttack = false;
+        isHoldingAttack = false;
+        isAttacking = false;
+        playerMovement.canJump = true;
+        playerMovement.canMove = true;
+
+        if (attackFailSafe != null)
+        {
+            StopCoroutine(attackFailSafe);
+            attackFailSafe = null;
+        }
+
+        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown));
+        Debug.Log("attack cooldown started");
     }
 
     /// <summary>
@@ -127,13 +159,13 @@ public class PlayerActions : MonoBehaviour
     /// </summary>
     public void OnAttackEnded()
     {
-        isStrongAttack = false;
+     /*   isStrongAttack = false;
         playerMovement.canMove = true;
         playerMovement.canJump = true;
         isAttacking = false;
 
-        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown));
-        Debug.Log("attack cooldown started");
+        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown)); */
+        ForceEndAttack() ;
     }
 
     private void DealSwordDamage()

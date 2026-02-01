@@ -1,3 +1,5 @@
+using NUnit.Framework.Internal.Filters;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,7 +12,6 @@ public class Enemy : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private EnemyTypes enemyType;
-   // private NavMeshAgent agent;
     private Transform playerTransform;
     private Vector3 originalPosition;
     private EnemyAnimation enemyAnimation;
@@ -20,76 +21,17 @@ public class Enemy : MonoBehaviour
     private bool canAttack = true;
     private bool canMove = true;
 
+    [Header("Obstacle Detection")]
+    [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private float avoidDistance = 1.5f;
+    [SerializeField] private float rayAngle = 30f;
+
     private void Awake()
     {
-        //agent = GetComponent<NavMeshAgent>();
         enemyAnimation = GetComponent<EnemyAnimation>();
-
         currentHealth = enemyType.health;
-        //agent.speed = enemyType.speed;
-        //agent.stoppingDistance = enemyType.attackRange;
     }
 
-#region Enemy Targeting Behavior
-
-    /// <summary>
-    /// Find the player and set as destination
-    /// </summary>
-  /*  private void TargetPlayer()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-
-        if (distanceToPlayer <= enemyType.targetingRange)
-        {
-            if(!canMove)
-                return;
-            if(distanceToPlayer > enemyType.attackRange)
-            {
-                // Set the player's position as the destination for the NavMeshAgent
-                agent.isStopped = false;
-                agent.SetDestination(playerTransform.position);
-                enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
-            }
-            else
-            {
-                // Attack the player
-                agent.isStopped = true;
-                enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
-            }
-        }
-        else
-        {
-            // go back to idle state and original position
-            if (Vector3.Distance(transform.position, originalPosition) > 0.1f)
-            {
-                agent.isStopped = false;
-                agent.SetDestination(originalPosition);
-                enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
-            }
-            else
-            {
-                agent.isStopped = true;
-                enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
-
-            }
-        }
-    }
-
-
-    private void Rotate()
-    {
-        Vector3 velocity = agent.velocity;
-
-        velocity.y = 0; // Keep only the horizontal direction
-
-        if (velocity != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(velocity.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
-        }
-    }*/
-
-#endregion
 
     public void TakeDamage(float damage)
     {
@@ -105,13 +47,17 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        isDead = true;
+        canAttack = false;
+        canMove = false;   
+
         Debug.Log("Enemy died");
         enemyAnimation.SetAnimationState(EnemyAnimationState.Death);
     }
 
     private void OnDeathEvent()
     {
-        GameObject.Destroy(this);
+        GameObject.Destroy(gameObject);
     }
     void Start()
     {
@@ -126,13 +72,130 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void HandleEnemyBehavior()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+        // Player is in targeting range 
+        if (distanceToPlayer <= enemyType.targetingRange)
+        {
+            if (distanceToPlayer <= enemyType.attackRange)
+            {
+                Attack();
+            }
+            else
+            {
+                ChasePlayer();
+            }
+        }
+        else
+        {
+            ReturnToSpawn();
+        }
+    }
+
+    private void ChasePlayer()
+    {
+        if (!canMove)
+            return;
+
+        enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
+
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+
+        // shoot ray forward
+        bool forwardRay = Physics.Raycast(origin, direction, avoidDistance, obstacleLayer);
+
+        //side rays (left and right) 
+        Vector3 leftDirection = Quaternion.Euler(0, -rayAngle, 0) * direction;
+        Vector3 rightDirection = Quaternion.Euler(0, rayAngle, 0) * direction;
+
+        bool leftRay = Physics.Raycast(origin, leftDirection, avoidDistance, obstacleLayer);
+        bool rightRay = Physics.Raycast(origin, rightDirection, avoidDistance, obstacleLayer);
+
+        // choose direction based on raycasts
+        if (forwardRay)
+        {
+            if(!rightRay)
+                direction = rightDirection;
+            else if(!leftRay)
+                direction = leftDirection;
+            else
+                direction = -direction;
+        }
+
+        direction.y = 0f;
+        direction.Normalize();
+
+        transform.position += direction * enemyType.speed * Time.deltaTime;
+    }
+
+    private void Attack()
+    {
+        if(!canAttack)
+            return;
+
+        canAttack = false;
+        canMove = false;
+
+        enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
+
+        StartCoroutine(ResetAttack(enemyType.attackCooldown));
+    }
+
+    private IEnumerator ResetAttack(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        canAttack = true;
+        canMove = true;
+    }
+
+    private void ReturnToSpawn()
+    {
+        float distanceToSpawn = Vector3.Distance(transform.position, originalPosition);
+
+        if (distanceToSpawn > 0.1f)
+        {
+            if (!canMove)
+                return;
+
+            enemyAnimation.SetAnimationState(EnemyAnimationState.Move);
+
+            transform.position = Vector3.MoveTowards(transform.position, originalPosition, enemyType.speed * Time.deltaTime);
+        }
+        else
+        {
+           enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
+        }
+    }
+
+    private void RotateTowordsTarget()
+    {
+        Vector3 target = playerTransform.position;
+
+        if(Vector3.Distance(transform.position, playerTransform.position) > enemyType.targetingRange)
+            target = originalPosition;
+
+        Vector3 direction = target - transform.position;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.1f)
+            return;
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
+    }
+
     void Update()
     {
         if (isDead || playerTransform == null)
         {
             return;
         }
-       // TargetPlayer();
-        //Rotate();
+        HandleEnemyBehavior();
+        RotateTowordsTarget();
     }
+
 }
+
