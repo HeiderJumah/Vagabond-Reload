@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,7 +32,7 @@ public class PlayerActions : MonoBehaviour
     private Coroutine attackFailSafe;
 
 
-
+    public bool IsAlive { get; private set; } = true;
 
     void Start()
     {
@@ -190,7 +191,7 @@ public class PlayerActions : MonoBehaviour
             }
             if (enemy != null)
             {
-        Debug.Log($"Enemy layer: {enemy.gameObject.layer}");
+                Debug.Log($"Enemy layer: {enemy.gameObject.layer}");
                 Debug.Log("Enemy detected: " + enemy.name);
                 enemy.TakeDamage(trueDamage);
             }
@@ -204,10 +205,12 @@ public class PlayerActions : MonoBehaviour
         canAttack = true;
     }
 
-    private void OnTakeDamage(float damage)
+    public void OnTakeDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0)
+        Debug.Log("Player has: " + currentHealth);
+        Debug.Log($"Taking damage: {damage}, currentHealth before: {currentHealth}");
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
@@ -219,7 +222,13 @@ public class PlayerActions : MonoBehaviour
         // play die animation 
         playerAnimation.SetAnimationState(PlayerAnimationState.Die);
 
-        // 
+        IsAlive = false;
+
+        canAttack = false;
+        playerMovement.canJump = false;
+        playerMovement.canMove = false;
+
+        // GameOver screen
 
     }
 
@@ -239,7 +248,7 @@ public class PlayerActions : MonoBehaviour
         float displayRange = playerStats.attackRange * weaponType.weaponRange;
 
         // Optional: If holding attack, show the stronger range
-        // displayRange *= isStrongAttack ? 1.5f : 1f;
+        displayRange *= isStrongAttack ? 1.5f : 1f;
 
         Vector3 center = transform.position + transform.forward * displayRange;
 

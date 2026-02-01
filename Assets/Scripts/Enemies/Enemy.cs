@@ -13,8 +13,10 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     [SerializeField] private EnemyTypes enemyType;
     private Transform playerTransform;
+    private PlayerActions playerActions;
     private Vector3 originalPosition;
     private EnemyAnimation enemyAnimation;
+    private Coroutine attackRoutine;
 
     [Header("bools")]
     private bool isDead = false;
@@ -37,12 +39,15 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
 
-        Debug.Log(currentHealth);
+        Debug.Log("Enemy has: " +currentHealth);
         Debug.Log($"Taking damage: {damage}, currentHealth before: {currentHealth}");
         //float healthPercentage = Mathf.Clamp01(currentHealth / enemyType.health);
 
         if (currentHealth <= 0)
+        {
+            currentHealth = 0;
             Die();
+        }
     }
 
     private void Die()
@@ -55,9 +60,19 @@ public class Enemy : MonoBehaviour
         enemyAnimation.SetAnimationState(EnemyAnimationState.Death);
     }
 
+    /// <summary>
+    ///  animation event, destory on last frame of death animation
+    /// </summary>
     private void OnDeathEvent()
     {
         GameObject.Destroy(gameObject);
+    }
+    /// <summary>
+    /// animation event, set enemy back to idle on last frame of attack
+    /// </summary>
+    private void OnAttackEnded()
+    {
+        enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
     }
     void Start()
     {
@@ -68,6 +83,7 @@ public class Enemy : MonoBehaviour
         if (player != null)
         {
             playerTransform = player.transform;
+            playerActions = player.GetComponent<PlayerActions>();
         }
 
     }
@@ -81,7 +97,8 @@ public class Enemy : MonoBehaviour
         {
             if (distanceToPlayer <= enemyType.attackRange)
             {
-                Attack();
+                if(canAttack)
+                    Attack();
             }
             else
             {
@@ -139,18 +156,64 @@ public class Enemy : MonoBehaviour
 
         canAttack = false;
         canMove = false;
-
+        
         enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
 
-        StartCoroutine(ResetAttack(enemyType.attackCooldown));
+        if(attackRoutine != null)
+            StopCoroutine(attackRoutine);
+
+        attackRoutine = StartCoroutine(AttackRoutine());
+       // StartCoroutine(ResetAttack(enemyType.attackCooldown));
     }
 
-    private IEnumerator ResetAttack(float cooldown)
+    private IEnumerator AttackRoutine()
+    { 
+        // windup time so the player has a chance to evade
+        yield return  new WaitForSeconds(enemyType.attackWindup);
+
+        if(playerActions == null || !playerActions.IsAlive)
+            yield break;
+
+        switch(enemyType.enemyCategory)
+        {
+            case EnemyCategory.slime:
+                Slime slime = GetComponent<Slime>();
+                if (slime != null)
+                    slime.Attack();
+                break;
+            case EnemyCategory.skeleton:
+                break;
+            case EnemyCategory.swordSkeleton:
+                break;
+            case EnemyCategory.bat:
+                break;
+            case EnemyCategory.goblin:
+                break;
+            case EnemyCategory.rabbit:
+                break;
+            case EnemyCategory.golemBoss:
+                break;
+        }
+
+        // recovery time after attack 
+
+        yield return new WaitForSeconds(enemyType.attackCooldown);
+
+        canAttack = true;
+        Debug.Log("Enemy canAttack: " + canAttack);
+        canMove= true;
+        Debug.Log("Enemy canMove: " + canMove);
+
+    }
+
+    /*private IEnumerator ResetAttack(float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
         canAttack = true;
+        Debug.Log(canAttack);
         canMove = true;
-    }
+    }*/
+
 
     private void ReturnToSpawn()
     {
@@ -193,6 +256,12 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
+        if (!playerActions.IsAlive)
+        {
+            ReturnToSpawn();
+            return; 
+        }
+
         HandleEnemyBehavior();
         RotateTowordsTarget();
     }

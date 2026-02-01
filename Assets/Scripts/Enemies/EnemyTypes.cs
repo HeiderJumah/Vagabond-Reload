@@ -7,17 +7,22 @@ public class EnemyTypes : ScriptableObject
     public string enemyName;
     public float health;
     public float speed;
-    public int damage;
+    public float damage;
     public float attackRange;
     public float targetingRange;
     public float attackCooldown;
     public GameObject loot;
+    public EnemyCategory enemyCategory;
+    public float attackWindup = 0.4f;
 }
 
 public enum EnemyCategory
 {
     slime,
+    rabbit,
+    goblin,
     skeleton,
+    swordSkeleton,
     bat,
-    boss
+    golemBoss
 }
