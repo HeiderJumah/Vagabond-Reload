@@ -22,3 +22,6 @@ MonoBehaviour:
   loot: {fileID: 0}
   enemyCategory: 0
   attackWindup: 1
+  hitKnockbackResistance: 1
+  patrollingRange: 5
+  patrolWaitTime: 6

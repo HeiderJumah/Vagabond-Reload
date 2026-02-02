@@ -14,6 +14,9 @@ public class EnemyTypes : ScriptableObject
     public GameObject loot;
     public EnemyCategory enemyCategory;
     public float attackWindup = 0.4f;
+    public float hitKnockbackResistance = 1f; 
+    public float patrollingRange;
+    public float patrolWaitTime;
 }
 
 public enum EnemyCategory

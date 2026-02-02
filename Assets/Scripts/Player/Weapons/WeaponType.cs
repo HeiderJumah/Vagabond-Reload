@@ -9,6 +9,7 @@ public class WeaponType : ScriptableObject
     public float weaponRange = 1f;
     public int staminaUse = 1;
     public float weaponCooldown = 1f;
+    public float weaponKnockBack = 1f;
 
 }
 public enum AttackType

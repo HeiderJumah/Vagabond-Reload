@@ -194,6 +194,9 @@ public class PlayerActions : MonoBehaviour
                 Debug.Log($"Enemy layer: {enemy.gameObject.layer}");
                 Debug.Log("Enemy detected: " + enemy.name);
                 enemy.TakeDamage(trueDamage);
+
+                // Apply knockback 
+                enemy.ApplyKnockback(transform.position, playerStats.knockBack * weaponType.weaponKnockBack);
             }
         }
     }

@@ -9,4 +9,5 @@ public class PlayerStats : ScriptableObject
     public int maxStamina = 3;
     public float attackRange = 1f;
     public float attackCooldown = 1f; 
+    public float knockBack = 1f;
 }
