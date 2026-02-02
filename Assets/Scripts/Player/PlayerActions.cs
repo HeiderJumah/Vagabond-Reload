@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private WeaponType weaponType;
     [SerializeField] private LayerMask enemyMask;
+   // private PlayerUIManager playerUIManager;
 
     [Header("Stats")]
     private float maxHealth;
@@ -34,14 +36,23 @@ public class PlayerActions : MonoBehaviour
 
     public bool IsAlive { get; private set; } = true;
 
-    void Start()
+    public float GetMaxHealth() => maxHealth;
+    public float GetCurrentHealth() => currentHealth;
+
+    public event Action<float> OnHealthChanged;
+
+    private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
-        playerAnimation = GetComponent<PlayerAnimation>();
         maxHealth = playerStats.maxHealth;
         currentHealth = maxHealth;
         maxStamina = playerStats.maxStamina;
         currentStamina = maxStamina;
+    }
+
+    void Start()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     void Update()
@@ -210,7 +221,8 @@ public class PlayerActions : MonoBehaviour
 
     public void OnTakeDamage(float damage)
     {
-        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth);
         Debug.Log("Player has: " + currentHealth);
         Debug.Log($"Taking damage: {damage}, currentHealth before: {currentHealth}");
         if (currentHealth <= 0)

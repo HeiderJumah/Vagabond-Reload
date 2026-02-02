@@ -402,24 +402,25 @@ public class Enemy : MonoBehaviour
         {
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-            if (distanceToPlayer <= enemyType.targetingRange && distanceToPlayer > enemyType.attackRange)
+           if (distanceToPlayer <= enemyType.targetingRange)
             {
-                moveDirection = GetMoveDirection(playerTransform.position);
+                moveDirection = playerTransform.position - transform.position;
             }
         }
 
         if (moveDirection == Vector3.zero && !isPatrolling)
         {
-            moveDirection = GetMoveDirection(originalPosition);
+           moveDirection = originalPosition - transform.position;
         }
         if (moveDirection == Vector3.zero && isPatrolling)
         {
-            moveDirection = (patrolTarget - transform.position).normalized;
+           moveDirection = patrolTarget - transform.position;
         }
+
+        moveDirection.y = 0f;
 
         if (moveDirection.sqrMagnitude > 0.01f)
         {
-            moveDirection.y = 0f;
             Quaternion rotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10f);
         }
