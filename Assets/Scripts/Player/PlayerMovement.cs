@@ -43,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
     private float scrollCamera;
     private float cameraYaw;
 
+    [Header("Cursor Settings")]
+    [SerializeField] private Texture2D customCursor;
+    [SerializeField] private Vector2 cursorHotspot = Vector2.zero; // center of the texture
+
     private readonly PlayerAnimationState[] idleVarients =
     {
         PlayerAnimationState.IdleTwo,
@@ -59,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
         scrollCamera = cameraDistance; 
         // Lock cursor to the game window
         Cursor.lockState = CursorLockMode.Confined;
+
+        if(customCursor != null ) 
+            Cursor.SetCursor(customCursor, cursorHotspot, CursorMode.Auto);
     }
     /// <summary>
     /// always reads player input   

@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeGreen
       objectReference: {fileID: 0}
+    - target: {fileID: 8863102923527039348, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
+      propertyPath: enemyTypes
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
