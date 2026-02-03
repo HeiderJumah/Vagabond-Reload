@@ -1576,27 +1576,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7591361959274368832, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1655,7 +1655,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 307469873369078653, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c213e1d2f1bb924ab14af1996764bfc, type: 3}
@@ -1728,6 +1729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vagabond
       objectReference: {fileID: 0}
+    - target: {fileID: 3314159071854637392, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: f8d327f88e3408f42b3dc6850224b676, type: 3}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.545615
