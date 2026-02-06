@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   enemyName: name
-  health: 1
+  health: 10
   speed: 5
   damage: 1
-  attackRange: 3
+  attackRange: 1
   targetingRange: 10
   attackCooldown: 2
   loot: {fileID: 0}

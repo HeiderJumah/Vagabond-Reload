@@ -11,14 +11,14 @@ TagManager:
   - Ground
   - Water
   - UI
+  - Enemy
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - Player
   - 
   - 
   - 

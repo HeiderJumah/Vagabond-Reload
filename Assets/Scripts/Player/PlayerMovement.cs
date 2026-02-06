@@ -21,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine idleCoroutine;
 
     [Header("bools")]
-    private bool isJumping = false;
+    public bool isJumping = false;
+    public bool canJump = true;
     private bool isGrounded = false;
     private bool canDodge = true;
     private bool isDodging = false;
     private bool isIdleRoutineRunning;
+    public bool canMove = true;
 
     [Header("CameraSettings")]
     [SerializeField] private float cameraHeight = 5f; // default camera height
@@ -55,8 +57,6 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation = GetComponent<PlayerAnimation>();
         // set initial camera position for smooth scrolling 
         scrollCamera = cameraDistance; 
-        // Lock cursor to the game window
-        Cursor.lockState = CursorLockMode.Confined;
     }
     /// <summary>
     /// always reads player input   
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         input = new Vector3(horizontal, 0f, vertical).normalized;
 
         // Handle jump input
-        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping)
+        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping && canJump)
         {
             isJumping = true;
             StartCoroutine(JumpCoroutine());
@@ -129,14 +129,12 @@ public class PlayerMovement : MonoBehaviour
             HandleEmotes(PlayerAnimationState.EmoteFour); 
         }
 
-        // Handle escape key to unlock cursor
-        if (keyboard.escapeKey.wasPressedThisFrame)
-        {
-            Cursor.lockState = Cursor.lockState != CursorLockMode.None ? CursorLockMode.None : CursorLockMode.Confined;
-        }
     }
     private void Dodge()
     {
+        if (!canMove) 
+            return;
+
         // Dodge in the direction of movement
         if (isGrounded && !isJumping && canDodge)
         {
@@ -205,7 +203,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (isDodging) return; // Skip movement during dodge
+        if (isDodging || !canMove) 
+            return; // Skip movement during dodge
         if (input != Vector3.zero)
         {
             // cancel all idle Animations
@@ -321,6 +320,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void RotatePlayer() 
     {
+        if (!canMove)
+            return;
         // Ensure mouse is available
         if (Mouse.current == null)
             return;

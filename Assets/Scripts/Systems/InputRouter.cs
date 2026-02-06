@@ -6,6 +6,7 @@ using Vagabond.Core;
 namespace Vagabond.Systems.Input {
     public class InputRouter : MonoBehaviour
     {
+
         private void Update()
         {
             if (GameManager.Instance.GameStateManager.CurrentState == GameState.InGame)
@@ -13,8 +14,9 @@ namespace Vagabond.Systems.Input {
                 var keyboard = Keyboard.current;
                 if (keyboard == null)
                     return;
-                if(keyboard.tabKey.wasPressedThisFrame)
+                if(keyboard.escapeKey.wasPressedThisFrame)
                 {
+                    Cursor.lockState = Cursor.lockState != CursorLockMode.None ? CursorLockMode.None : CursorLockMode.Confined;
                     TogglePause();
                 }
             }
