@@ -189,26 +189,65 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         canAttack = false;
-        canMove = false;   
+        canMove = false; 
+        
+        if(attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+            attackRoutine = null;
+        }
+        if(patrolRoutine != null)
+        {
+            StopCoroutine(patrolRoutine);
+            patrolRoutine = null;
+        }
+
+        if(enemyType.enemyCategory == EnemyCategory.bat)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if(rb != null)
+                rb.useGravity = true;
+        }
 
         Debug.Log("Enemy died");
         enemyAnimation.SetAnimationState(EnemyAnimationState.Death);
+
+        StartCoroutine(DestroyObject());
     }
 
-    /// <summary>
-    ///  animation event, destory on last frame of death animation
-    /// </summary>
-    private void OnDeathEvent()
+    private IEnumerator DestroyObject()
     {
-        GameObject.Destroy(gameObject);
+        yield return null; // wait for death animation tp start
+
+        // get the length of the death animation 
+        float deathTime = enemyAnimation.GetAnimationTime(); 
+        yield return new WaitForSeconds(deathTime);
+
+        Destroy(gameObject);
     }
-    /// <summary>
-    /// animation event, set enemy back to idle on last frame of attack
-    /// </summary>
-    private void OnAttackEnded()
+
+    private IEnumerator AttackEnd()
     {
+        yield return null ; // wait to switch states
+
+        float attackTime = enemyAnimation.GetAnimationTime();
+
+        // end the animation state for the bat faster (cosmetic change only)
+        float exitTime = 1f;
+
+        if (enemyType.enemyCategory == EnemyCategory.bat)
+        {
+            exitTime = 0.5f;
+        }
+
+        yield return new WaitForSeconds(attackTime * exitTime);
+
+        if(isDead)
+            yield break;
+
         enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
     }
+
     void Start()
     {
         // store the initial position
@@ -328,6 +367,8 @@ public class Enemy : MonoBehaviour
             StopCoroutine(attackRoutine);
 
         attackRoutine = StartCoroutine(AttackRoutine());
+
+        StartCoroutine(AttackEnd());
     }
 
     private IEnumerator AttackRoutine()

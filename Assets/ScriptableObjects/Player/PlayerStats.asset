@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589ae971f076f64aaa44ebd2ee3563e, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
+  speed: 1
+  maxHealth: 5
+  damage: 1
+  maxStamina: 3
+  attackRange: 1
+  attackCooldown: 1
+  knockBack: 1

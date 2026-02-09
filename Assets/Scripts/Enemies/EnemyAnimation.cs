@@ -22,4 +22,10 @@ public class EnemyAnimation : MonoBehaviour
     }
 
 
+    public float GetAnimationTime()
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        return state.length;
+    }
+
 }

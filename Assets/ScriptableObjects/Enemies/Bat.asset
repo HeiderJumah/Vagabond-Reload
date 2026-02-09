@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Bat
   m_EditorClassIdentifier: 
   enemyName: 
-  health: 0
-  speed: 0
-  damage: 0
-  attackRange: 0
-  targetingRange: 0
-  attackCooldown: 0
+  health: 5
+  speed: 4
+  damage: 0.75
+  attackRange: 3
+  targetingRange: 7
+  attackCooldown: 3
   loot: {fileID: 0}
-  enemyCategory: 0
+  enemyCategory: 5
   attackWindup: 0.4
-  hitKnockbackResistance: 1
-  patrollingRange: 0
-  patrolWaitTime: 0
+  hitKnockbackResistance: 0.5
+  patrollingRange: 5
+  patrolWaitTime: 6
