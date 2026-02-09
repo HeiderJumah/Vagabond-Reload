@@ -391,6 +391,9 @@ public class Enemy : MonoBehaviour
             case EnemyCategory.swordSkeleton:
                 break;
             case EnemyCategory.bat:
+                Bat bat = GetComponent<Bat>();
+                if (bat != null)
+                    bat.Attack();
                 break;
             case EnemyCategory.goblin:
                 break;
