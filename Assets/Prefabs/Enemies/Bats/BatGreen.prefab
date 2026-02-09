@@ -188,6 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6467571431674914502}
   - component: {fileID: 1482953422789773198}
+  - component: {fileID: 6194895765938408937}
   - component: {fileID: 4443295206911513751}
   - component: {fileID: 5232680769267445765}
   - component: {fileID: 8776828879807655033}
@@ -239,6 +240,21 @@ MonoBehaviour:
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
+--- !u!114 &6194895765938408937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396421112309849462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68626c3f97b041c4da159d8dbe09af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: {fileID: 11400000, guid: 1e939177ac87ec045a6e17d50d23b62d, type: 2}
+  projectileObject: {fileID: 4788808188108329020, guid: c8345edbe7ea68746b9bd1d9333e445d, type: 3}
+  shootPoint: {fileID: 6467571431674914502}
 --- !u!114 &4443295206911513751
 MonoBehaviour:
   m_ObjectHideFlags: 0

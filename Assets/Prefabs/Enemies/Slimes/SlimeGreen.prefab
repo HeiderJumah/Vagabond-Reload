@@ -357,7 +357,7 @@ MonoBehaviour:
   healthbar: {fileID: 1732001952631708702}
   hitColor: {r: 1, g: 1, b: 1, a: 1}
   hitIndicatorDuration: 0.1
-  enemyType: {fileID: 11400000, guid: 2020c82fc480b03488ee42eba286e796, type: 2}
+  enemyType: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733f1945b44b65b4a97f5f2154c13bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypes: {fileID: 11400000, guid: 2020c82fc480b03488ee42eba286e796, type: 2}
+  enemyTypes: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
   playerMask:
     serializedVersion: 2
     m_Bits: 8192

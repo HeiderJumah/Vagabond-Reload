@@ -12,7 +12,7 @@ public class EnemyProjectile : MonoBehaviour
     public void Init(Bat bat)
     {
         sourceBat = bat;
-        lifetime = bat.enemyType.attackRange;
+        lifetime = bat.enemyType.attackRange + 1.5f;
         startPos = transform.position;
 
     }

@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     private Color[] originalColors;
     private Coroutine hitIndicatorRoutine;
     private Coroutine patrolRoutine;
+    private Vector3 deathPosition;
 
     [Header("bools")]
     private bool isDead = false;
@@ -202,6 +203,8 @@ public class Enemy : MonoBehaviour
             patrolRoutine = null;
         }
 
+        deathPosition = transform.position;
+
         if(enemyType.enemyCategory == EnemyCategory.bat)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
@@ -223,6 +226,8 @@ public class Enemy : MonoBehaviour
         float deathTime = enemyAnimation.GetAnimationTime(); 
         yield return new WaitForSeconds(deathTime);
 
+        Instantiate(enemyType.loot, deathPosition, Quaternion.identity);
+
         Destroy(gameObject);
     }
 
@@ -237,7 +242,7 @@ public class Enemy : MonoBehaviour
 
         if (enemyType.enemyCategory == EnemyCategory.bat)
         {
-            exitTime = 0.5f;
+            exitTime = 0.4f;
         }
 
         yield return new WaitForSeconds(attackTime * exitTime);

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa25f26c02f00d84c82d48ceb6e93816, type: 3}
-  m_Name: Bat
+  m_Name: SlimeBlue
   m_EditorClassIdentifier: 
-  enemyName: 
+  enemyName: Slime
   health: 5
-  speed: 4
-  damage: 0.75
-  attackRange: 3
+  speed: 3
+  damage: 0.5
+  attackRange: 0.7
   targetingRange: 7
   attackCooldown: 3
-  loot: {fileID: 0}
-  enemyCategory: 5
-  attackWindup: 0.4
-  hitKnockbackResistance: 0.5
+  loot: {fileID: 900153470135791793, guid: 50cea323a7f3bfb4597ac02344b64f5f, type: 3}
+  enemyCategory: 0
+  attackWindup: 1
+  hitKnockbackResistance: 1
   patrollingRange: 5
   patrolWaitTime: 6
