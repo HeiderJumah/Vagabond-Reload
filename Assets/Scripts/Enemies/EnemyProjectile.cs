@@ -14,7 +14,6 @@ public class EnemyProjectile : MonoBehaviour
         sourceBat = bat;
         lifetime = bat.enemyType.attackRange + 1.5f;
         startPos = transform.position;
-
     }
 
     private void Update()

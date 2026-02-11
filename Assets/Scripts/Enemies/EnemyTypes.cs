@@ -13,6 +13,7 @@ public class EnemyTypes : ScriptableObject
     public float attackCooldown;
     public GameObject loot;
     public EnemyCategory enemyCategory;
+    public Variant variant;
     public float attackWindup = 0.4f;
     public float hitKnockbackResistance = 1f; 
     public float patrollingRange;
@@ -28,4 +29,12 @@ public enum EnemyCategory
     swordSkeleton,
     bat,
     golemBoss
+}
+
+public enum Variant
+{
+    None,
+    One, 
+    Two,
+    Three
 }

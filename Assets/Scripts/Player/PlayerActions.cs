@@ -35,6 +35,7 @@ public class PlayerActions : MonoBehaviour
 
 
     public bool IsAlive { get; private set; } = true;
+    private bool isBurned = false;
 
     public float GetMaxHealth() => maxHealth;
     public float GetCurrentHealth() => currentHealth;
@@ -59,7 +60,6 @@ public class PlayerActions : MonoBehaviour
     {
         Attack(); 
     }
-
     private void Attack()
     {
         var mouse = Mouse.current;
@@ -230,6 +230,38 @@ public class PlayerActions : MonoBehaviour
             currentHealth = 0;
             Die();
         }
+    }
+
+    public void BurnedStatus(float duration)
+    {
+        // take damage in ticks over time for the duration in which burn lasts
+        if(isBurned || !IsAlive) 
+            return;
+
+        StartCoroutine(BurnRoutine(duration));
+    }
+
+    private IEnumerator BurnRoutine(float duration)
+    {
+        Debug.Log("isBurned");
+        isBurned = true;
+
+        float tickInterval = 1f;    // damage tick every second
+        float burnDamage = 0.25f;   // damage per tick 
+
+        float timeElapsed = 0f; // track duration of burned status
+
+        while (timeElapsed <= duration && IsAlive)
+        {
+            // call burn damage every tick interval 
+            OnTakeDamage(burnDamage);
+
+            yield return new WaitForSeconds(tickInterval);
+
+            timeElapsed += tickInterval;
+        }
+        isBurned = false;
+        
     }
 
     private void Die()

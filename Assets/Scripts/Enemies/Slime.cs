@@ -27,9 +27,39 @@ public class Slime : MonoBehaviour
             if (player != null)
             {
                 player.OnTakeDamage(enemyTypes.damage);
+                switch(enemyTypes.variant)
+                {
+                    case Variant.None:
+                        Debug.Log("No Variant");
+                        break;
+                    case Variant.One:
+                        player.BurnedStatus(5f);
+                        break;
+                    case Variant.Two:
+                        break;
+                    case Variant.Three:
+                        break;
+                }
+
             }
         }
     }
+
+    private void VariantEffects(PlayerActions player)
+    {
+        switch(enemyTypes.variant)
+        {
+            case Variant.None:
+                break;
+            case Variant.One:
+                break;
+            case Variant.Two:
+                break;
+            case Variant.Three:
+                break;
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (enemyTypes == null)

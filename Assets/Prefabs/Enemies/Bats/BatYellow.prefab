@@ -309,7 +309,7 @@ MonoBehaviour:
   healthbar: {fileID: 1532669823189004738}
   hitColor: {r: 1, g: 1, b: 1, a: 1}
   hitIndicatorDuration: 0.1
-  enemyType: {fileID: 11400000, guid: 1e939177ac87ec045a6e17d50d23b62d, type: 2}
+  enemyType: {fileID: 11400000, guid: a996c25dd56d0984980e8d073cf8e079, type: 2}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -327,8 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68626c3f97b041c4da159d8dbe09af27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: 1e939177ac87ec045a6e17d50d23b62d, type: 2}
-  projectileObject: {fileID: 4788808188108329020, guid: c8345edbe7ea68746b9bd1d9333e445d, type: 3}
+  enemyType: {fileID: 11400000, guid: a996c25dd56d0984980e8d073cf8e079, type: 2}
+  projectileObject: {fileID: 2036222018620549299, guid: ac10202827061564eac2ce6285206bfd, type: 3}
   shootPoint: {fileID: 3446558678867145180}
 --- !u!114 &3770600455729793750
 MonoBehaviour:

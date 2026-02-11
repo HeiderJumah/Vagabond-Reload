@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: {fileID: 11400000, guid: 1e939177ac87ec045a6e17d50d23b62d, type: 2}
-  projectileObject: {fileID: 4788808188108329020, guid: c8345edbe7ea68746b9bd1d9333e445d, type: 3}
+  projectileObject: {fileID: 2036222018620549299, guid: ac10202827061564eac2ce6285206bfd, type: 3}
   shootPoint: {fileID: 6968143124076100958}
 --- !u!114 &7220879845157659573
 MonoBehaviour:
