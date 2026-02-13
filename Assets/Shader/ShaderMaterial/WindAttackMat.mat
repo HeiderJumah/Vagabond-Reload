@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WindMat
+  m_Name: WindAttackMat
   m_Shader: {fileID: -6465566751694194690, guid: 463b8adb2b0884c4fa0d5c094b9f2d4d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -63,7 +63,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 11.337905, g: 126.50719, b: 90.89564, a: 0.3921569}
+    - _Color: {r: 9.272778, g: 126.50719, b: 90.89564, a: 0.3921569}
     - _Speed: {r: 0.2, g: 0.3, b: 0, a: 0}
     - _Tiling: {r: 0.59, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []

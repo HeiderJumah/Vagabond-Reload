@@ -36,6 +36,7 @@ public class EnemyProjectile : MonoBehaviour
         if (player != null && player.IsAlive)
         {
             player.OnTakeDamage(sourceBat.enemyType.damage);
+            sourceBat.VariantEffects(player);
             Destroy(gameObject);
         }
     }

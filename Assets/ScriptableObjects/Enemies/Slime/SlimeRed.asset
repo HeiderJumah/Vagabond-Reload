@@ -22,7 +22,7 @@ MonoBehaviour:
   loot: {fileID: 900153470135791793, guid: 1ccb1b9ca39e2e14b921d3099f53daef, type: 3}
   enemyCategory: 0
   variant: 1
-  attackWindup: 1
+  attackWindup: 0.4
   hitKnockbackResistance: 1
   patrollingRange: 5
   patrolWaitTime: 6

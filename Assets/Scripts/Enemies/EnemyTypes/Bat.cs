@@ -17,4 +17,20 @@ public class Bat : MonoBehaviour
         if (proj != null)
             proj.Init(this);
     }
+
+    public void VariantEffects(PlayerActions player)
+    {
+        switch(enemyType.variant)
+        {
+            case Variant.One:
+                player.BurnedStatus(4f);
+                break;
+            case Variant.Two:
+                player.SlowedForward(8f);
+                break;
+            case Variant.Three:
+                player.ParalyzedForward(6.2f);
+                break;
+        }
+    }
 }
