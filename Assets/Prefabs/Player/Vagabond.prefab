@@ -77,13 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5644e63ddf8c946b61d29aea22f953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   jumpForce: 6
   dodgeCooldown: 1
   dodgeSpeed: 6
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerStats: {fileID: 11400000, guid: b30f4f1b4a76920409b64254f9dce95e, type: 2}
   isJumping: 0
   canJump: 1
   canMove: 1

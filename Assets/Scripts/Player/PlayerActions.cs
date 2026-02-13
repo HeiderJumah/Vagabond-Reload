@@ -36,7 +36,6 @@ public class PlayerActions : MonoBehaviour
 
     public bool IsAlive { get; private set; } = true;
     private bool isBurned = false;
-
     public float GetMaxHealth() => maxHealth;
     public float GetCurrentHealth() => currentHealth;
 
@@ -235,21 +234,31 @@ public class PlayerActions : MonoBehaviour
     public void BurnedStatus(float duration)
     {
         // take damage in ticks over time for the duration in which burn lasts
-        if(isBurned || !IsAlive) 
+        if (isBurned || !IsAlive)
+        {
+            Debug.Log(isBurned + "returning");
             return;
+        }
 
         StartCoroutine(BurnRoutine(duration));
     }
 
     private IEnumerator BurnRoutine(float duration)
     {
-        Debug.Log("isBurned");
         isBurned = true;
+        // activate burn status ui 
+        OnBurnStatusChanged?.Invoke(true);
+        Debug.Log("Burned: " + isBurned);
+
 
         float tickInterval = 1f;    // damage tick every second
         float burnDamage = 0.25f;   // damage per tick 
 
         float timeElapsed = 0f; // track duration of burned status
+
+        // Prevent first burn damage tick to run at the same time as normal damage call
+        yield return new WaitForSeconds(tickInterval);
+        timeElapsed += tickInterval;
 
         while (timeElapsed <= duration && IsAlive)
         {
@@ -261,7 +270,33 @@ public class PlayerActions : MonoBehaviour
             timeElapsed += tickInterval;
         }
         isBurned = false;
+        // deactivate burn status UI
+        OnBurnStatusChanged?.Invoke(false);
+        Debug.Log("Burned: " + isBurned);
         
+    }
+
+    public event System.Action<bool> OnBurnStatusChanged; 
+
+    /// <summary>
+    /// forward status change to playerMovement
+    /// </summary>
+    public void SlowedForward(float duration)
+    {
+        if (playerMovement  != null) 
+            playerMovement.SlowStatus(duration);
+    }
+
+    public void ConfusedForward(float duration)
+    {
+        if (playerMovement != null)
+            playerMovement.ConfusedStatus(duration);
+    }
+
+    public void ParalyzedForward(float duration)
+    {
+        if (playerMovement != null)
+            playerMovement.ParalyzedStatus(duration);
     }
 
     private void Die()

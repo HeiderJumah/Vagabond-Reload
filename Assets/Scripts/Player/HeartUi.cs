@@ -11,6 +11,15 @@ public class HeartUi : MonoBehaviour
 
     [SerializeField] private float flashTime = 0.1f;
 
+    // fix size on runtime 
+    private Vector2 heartSize = new Vector2(50, 50);
+
+    public void HeartInit()
+    {
+        empty.rectTransform.sizeDelta = heartSize;
+        red.rectTransform.sizeDelta = heartSize;
+        damageFlash.rectTransform.sizeDelta = heartSize;
+    }
     public void SetHeart(float value)
     {
         value = Mathf.Clamp01(value);

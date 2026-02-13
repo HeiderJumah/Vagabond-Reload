@@ -61,7 +61,15 @@ public class Enemy : MonoBehaviour
 
         for (int i = 0; i < enemyRenderers.Length; i++)
         {
-            originalColors[i] = enemyRenderers[i].material.color;
+            if (enemyRenderers[i].material.HasProperty("_Color")) 
+            {
+                originalColors[i] = enemyRenderers[i].material.color;
+            }
+            else
+            {
+                // fallback 
+                originalColors[i] = Color.white;
+            }
         }
 
     }
@@ -123,7 +131,7 @@ public class Enemy : MonoBehaviour
                 // set emission color to hitColor for visibility 
                 renderers.material.SetColor("_EmissionColor", hitColor);
             }
-            else
+            else if(renderers.material.HasProperty("_Color"))
             {
                 renderers.material.color = hitColor;
             }

@@ -27,20 +27,7 @@ public class Slime : MonoBehaviour
             if (player != null)
             {
                 player.OnTakeDamage(enemyTypes.damage);
-                switch(enemyTypes.variant)
-                {
-                    case Variant.None:
-                        Debug.Log("No Variant");
-                        break;
-                    case Variant.One:
-                        player.BurnedStatus(5f);
-                        break;
-                    case Variant.Two:
-                        break;
-                    case Variant.Three:
-                        break;
-                }
-
+                VariantEffects(player);
             }
         }
     }
@@ -49,13 +36,14 @@ public class Slime : MonoBehaviour
     {
         switch(enemyTypes.variant)
         {
-            case Variant.None:
-                break;
             case Variant.One:
+                player.BurnedStatus(5f);
                 break;
             case Variant.Two:
+                player.SlowedForward(5f);
                 break;
             case Variant.Three:
+                player.ParalyzedForward(6.2f);
                 break;
         }
     }

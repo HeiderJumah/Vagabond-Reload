@@ -21,6 +21,7 @@ MonoBehaviour:
   attackCooldown: 3
   loot: {fileID: 900153470135791793, guid: 578778f84d32d0046a41119e6e6fd463, type: 3}
   enemyCategory: 0
+  variant: 3
   attackWindup: 1
   hitKnockbackResistance: 1
   patrollingRange: 5

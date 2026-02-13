@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -7,7 +8,7 @@ using UnityEngine.Rendering;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Information")]
-    [SerializeField] private float moveSpeed = 5f;
+    private float moveSpeed;
     [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float dodgeCooldown = 1f;
     [SerializeField] private float dodgeSpeed = 2f;
@@ -19,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private PlayerAnimation playerAnimation;
     private Coroutine idleCoroutine;
+    private PlayerActions playerActions;
+    [SerializeField] private PlayerStats playerStats;
 
     [Header("bools")]
     public bool isJumping = false;
@@ -28,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isDodging = false;
     private bool isIdleRoutineRunning;
     public bool canMove = true;
+    private bool isSlowed = false;
+    private bool isConfused = false;   
+    private bool isParalyzed = false;
+    private bool isLocked = false;  
 
     [Header("CameraSettings")]
     [SerializeField] private float cameraHeight = 5f; // default camera height
@@ -55,8 +62,11 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        playerActions = GetComponent<PlayerActions>();
         // set initial camera position for smooth scrolling 
         scrollCamera = cameraDistance; 
+
+        moveSpeed = playerStats.speed;
     }
     /// <summary>
     /// always reads player input   
@@ -93,10 +103,20 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = 0f;
         float vertical = 0f;
 
-        if(keyboard.aKey.isPressed) horizontal -= 1f;
-        if(keyboard.dKey.isPressed) horizontal += 1f;
-        if(keyboard.wKey.isPressed) vertical += 1f;
-        if(keyboard.sKey.isPressed) vertical -= 1f;
+        if(!isConfused)
+        {
+            if(keyboard.aKey.isPressed) horizontal -= 1f;
+            if(keyboard.dKey.isPressed) horizontal += 1f;
+            if(keyboard.wKey.isPressed) vertical += 1f;
+            if(keyboard.sKey.isPressed) vertical -= 1f;
+        }
+        else
+        {
+            if (keyboard.aKey.isPressed) horizontal += 1f;
+            if (keyboard.dKey.isPressed) horizontal -= 1f;
+            if (keyboard.wKey.isPressed) vertical -= 1f;
+            if (keyboard.sKey.isPressed) vertical += 1f;
+        }
 
         input = new Vector3(horizontal, 0f, vertical).normalized;
 
@@ -203,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (isDodging || !canMove) 
+        if (isDodging || !canMove || isLocked) 
             return; // Skip movement during dodge
         if (input != Vector3.zero)
         {
@@ -412,4 +432,135 @@ public class PlayerMovement : MonoBehaviour
         // Set camera rotation to look down in a fixed angle
         mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
     }
+
+    public void SlowStatus(float duration)
+    {
+        if(isSlowed || !playerActions.IsAlive)
+        {
+            Debug.Log(isSlowed + " already slowed; returning");
+            return;
+        }
+        StartCoroutine(SlowedRoutine(duration));
+    }
+
+    private IEnumerator SlowedRoutine(float duration)
+    {
+        isSlowed = true;
+        // active slowed status ui
+        OnSlowedStatusChanged?.Invoke(true);
+        Debug.Log("Slowed: " + isSlowed);
+
+        // track slowed status duration 
+        float timeElapsed = 0f;
+        while (timeElapsed <= duration)
+        {
+            moveSpeed = playerStats.speed / 2;
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        isSlowed = false;
+        moveSpeed = playerStats.speed;
+        // deactivate slowed status ui 
+        OnSlowedStatusChanged?.Invoke(false);
+        Debug.Log("Slowed: " + isSlowed);
+
+    }
+
+    public event System.Action<bool> OnSlowedStatusChanged;
+
+    public void ConfusedStatus(float duration)
+    {
+        if(isConfused || !playerActions.IsAlive)
+        {
+            Debug.Log("Confused: " + isConfused);
+            return;
+        }
+        StartCoroutine(ConfusedRoutine(duration));
+
+    }
+
+    private IEnumerator ConfusedRoutine(float duration)
+    {
+        isConfused = true;
+        // activate confused status UI
+        OnConfusedStatusChanged?.Invoke(true);
+        Debug.Log("Confused: " + isConfused);
+
+        // track duration of confused status
+        float timeElapsed = 0f;
+        while (timeElapsed <= duration)
+        {
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        isConfused = false;
+        // deactivate confused status UI
+        OnConfusedStatusChanged?.Invoke(false);
+        Debug.Log("confused: " + isConfused);
+    }
+
+    public event System.Action<bool> OnConfusedStatusChanged;
+
+    public void ParalyzedStatus(float duration)
+    {
+        if(isParalyzed || !playerActions.IsAlive)
+        {
+            Debug.Log("Paralyzed: " + isParalyzed);
+            return;
+        }
+        StartCoroutine(ParalyzedRoutine(duration));
+    }
+
+    private IEnumerator ParalyzedRoutine(float duration)
+    {
+        isParalyzed = true;
+        // activate paralyzed status UI
+        OnParalyzedStatusChanged?.Invoke(true);
+        Debug.Log("Paralyzed: " + isParalyzed);
+
+        // paralyzed ticks invervals 
+        float tickInterval = 2f;
+        float stunDuration = 1f; 
+
+        // get more accurate paralyze duration 
+        float endTime =  Time.time + duration;
+
+        // instant first paralyze
+        DeactivateControls();
+        while (Time.time < endTime)
+        {
+            yield return new WaitForSeconds(stunDuration);
+            ActivateControls();
+            // activate para tick after tick Interval
+            yield return new WaitForSeconds(tickInterval);
+
+            DeactivateControls();
+        }
+        isParalyzed= false;
+        ActivateControls();
+        OnParalyzedStatusChanged?.Invoke(false);
+    }
+
+    public event System.Action<bool> OnParalyzedStatusChanged;
+
+    private void ActivateControls()
+    {
+        canMove = true;
+        canJump = true;
+        canDodge = true;
+        playerActions.canAttack = true;
+        isLocked = false;
+    }
+
+    private void DeactivateControls()
+    {
+        canMove = false;
+        canJump = false;
+        canDodge = false;
+        playerActions.canAttack = false;
+        isLocked= true;
+        playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
+
+    }
+
 }
