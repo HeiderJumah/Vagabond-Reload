@@ -3,7 +3,6 @@ using UnityEngine;
 public class Slime : Enemy
 {
     [Header("References")]
-    //[SerializeField] EnemyTypes enemyTypes;
     [SerializeField] private LayerMask playerMask;
 
     /// <summary>

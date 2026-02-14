@@ -163,6 +163,27 @@ public class Enemy : MonoBehaviour
         healthbar.fillAmount = healthFill; 
     }
 
+    protected void Heal(float amount)
+    {
+        if(isDead)
+            return;
+
+        if (currentHealth >= maxHealth)
+            return;
+
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        Debug.Log(currentHealth);
+
+        float healthPercentage = Mathf.Clamp01(currentHealth / maxHealth);
+        healthFill = healthPercentage;
+
+        if(smoothHealthRoutine != null) 
+            StopCoroutine(smoothHealthRoutine);
+
+        smoothHealthRoutine = StartCoroutine(SmoothHealthChange());
+    }
+
     public void ApplyKnockback(Vector3 source, float force)
     {
         if(isDead) 
@@ -413,6 +434,9 @@ public class Enemy : MonoBehaviour
             case EnemyCategory.goblin:
                 break;
             case EnemyCategory.rabbit:
+                Rabbit rabbit = GetComponent<Rabbit>();
+                if (rabbit != null)
+                    rabbit.Attack();
                 break;
             case EnemyCategory.ghost:
                 Ghost ghost = GetComponent<Ghost>();
