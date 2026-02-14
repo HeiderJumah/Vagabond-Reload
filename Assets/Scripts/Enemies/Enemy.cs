@@ -128,7 +128,7 @@ public class Enemy : MonoBehaviour
             if (renderers.material.HasProperty("_EmissionColor"))
             {
                 // if so make sure emission is enabled
-                renderers.material.EnableKeyword("_EMSSION");
+                renderers.material.EnableKeyword("_EMISSION");
                 // set emission color to hitColor for visibility 
                 renderers.material.SetColor("_EmissionColor", hitColor);
             }
@@ -214,10 +214,11 @@ public class Enemy : MonoBehaviour
 
         deathPosition = transform.position;
 
-        if(enemyType.enemyCategory == EnemyCategory.bat)
+        if(enemyType.enemyCategory == EnemyCategory.bat || enemyType.enemyCategory == EnemyCategory.ghost)
         {
             Rigidbody rb = GetComponent<Rigidbody>();
             if(rb != null)
+                rb.isKinematic = false;
                 rb.useGravity = true;
         }
 

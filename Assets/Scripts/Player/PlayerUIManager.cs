@@ -19,6 +19,7 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private GameObject slowObject;
     [SerializeField] private GameObject confusedObject;
     [SerializeField] private GameObject paralizedObject;
+    [SerializeField] private GameObject poisonedObject;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class PlayerUIManager : MonoBehaviour
         playerMovement.OnSlowedStatusChanged += SetSlowedStatus;
         playerMovement.OnConfusedStatusChanged += SetConfusedStatus;
         playerMovement.OnParalyzedStatusChanged += SetParalizedStatus;
+        playerActions.OnPoisonedStatusChanged += SetPoisonedStatus;
     }
 
     private void CreateHearts()
@@ -82,6 +84,11 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (paralizedObject != null)
             paralizedObject.SetActive(paralized);
+    }
+    private void SetPoisonedStatus(bool poisoned)
+    {
+        if(poisonedObject != null)
+            poisonedObject.SetActive(poisoned);
     }
 
     private void OnDestroy()

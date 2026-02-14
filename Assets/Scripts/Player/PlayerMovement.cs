@@ -27,13 +27,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping = false;
     public bool canJump = true;
     private bool isGrounded = false;
-    private bool canDodge = true;
+    public bool canDodge = true;
     private bool isDodging = false;
     private bool isIdleRoutineRunning;
     public bool canMove = true;
     private bool isSlowed = false;
     private bool isConfused = false;   
-    private bool isParalyzed = false;
+    public bool isParalyzed { get; private set; } = false;
     private bool isLocked = false;  
 
     [Header("CameraSettings")]
@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Dodge()
     {
-        if (!canMove) 
+        if (!canMove ||playerActions.isPoisoned || isLocked || !playerActions.IsAlive) 
             return;
 
         // Dodge in the direction of movement
@@ -196,6 +196,11 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator JumpCoroutine()
     {
+        if(playerActions.isPoisoned || isLocked || !playerActions.IsAlive)
+        {
+            isJumping = false;
+            yield break;
+        }
         // Cancel all idle Animations
         CancelIdle();
         playerAnimation.SetAnimationState(PlayerAnimationState.Jump);
@@ -210,6 +215,11 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator DodgeCooldownCoroutine()
     {
+        if(playerActions.isPoisoned || isLocked)
+        {
+            isDodging = false;
+            yield break;
+        }
         yield return new WaitForSeconds(0.8f); // Duration of dodge
         isDodging = false;
         Debug.Log(isDodging);
@@ -223,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        if (isDodging || !canMove || isLocked) 
+        if (isDodging || !canMove || isLocked || !playerActions.IsAlive) 
             return; // Skip movement during dodge
         if (input != Vector3.zero)
         {
@@ -545,6 +555,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void ActivateControls()
     {
+        if(!playerActions.IsAlive)
+            return;
+
         canMove = true;
         canJump = true;
         canDodge = true;
@@ -554,6 +567,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void DeactivateControls()
     {
+        if(!playerActions.IsAlive)
+            return ;
+
         canMove = false;
         canJump = false;
         canDodge = false;

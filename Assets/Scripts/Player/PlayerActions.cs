@@ -36,6 +36,8 @@ public class PlayerActions : MonoBehaviour
 
     public bool IsAlive { get; private set; } = true;
     private bool isBurned = false;
+    public bool isPoisoned { get; private set; } = false;
+    
     public float GetMaxHealth() => maxHealth;
     public float GetCurrentHealth() => currentHealth;
 
@@ -278,6 +280,55 @@ public class PlayerActions : MonoBehaviour
 
     public event System.Action<bool> OnBurnStatusChanged; 
 
+    public void PoisonedStatus(float duration)
+    {
+        // take damage in ticks over time for the duration in which burn lasts
+        if (isPoisoned || !IsAlive)
+        {
+            Debug.Log(isPoisoned + "returning");
+            return;
+        }
+
+        StartCoroutine(PoisonRoutine(duration));
+    }
+
+    private IEnumerator PoisonRoutine(float duration)
+    {
+        isPoisoned = true;
+        // activate posion status UI
+        OnPoisonedStatusChanged?.Invoke(true);
+        Debug.Log("Poisoned: " + isPoisoned);
+
+        float tickInterval = 1f; // damage tick
+        float poisonDamage = 0.25f;   // damage per tick 
+
+        float timeElapsed = 0f; // track duration of burned status
+
+        // Prevent first burn damage tick to run at the same time as normal damage call
+        yield return new WaitForSeconds(tickInterval);
+        timeElapsed += tickInterval;
+
+        while (timeElapsed <= duration && IsAlive)
+        {
+            playerMovement.canJump = false;
+            playerMovement.canDodge = false;
+            // call burn damage every tick interval 
+            OnTakeDamage(poisonDamage);
+
+            yield return new WaitForSeconds(tickInterval);
+
+            timeElapsed += tickInterval;
+        }
+        isPoisoned = false;
+        playerMovement.canDodge = true;
+        playerMovement.canJump = true;
+        // deactivate burn status UI
+        OnPoisonedStatusChanged?.Invoke(false);
+        Debug.Log("Poisoned: " + isPoisoned);
+
+    }
+
+    public event System.Action<bool> OnPoisonedStatusChanged;
     /// <summary>
     /// forward status change to playerMovement
     /// </summary>
