@@ -1100,7 +1100,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6467571431674914502, guid: c743d11014e577c4ca5f01e8cdfaa2a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.49
+      value: -4.58
       objectReference: {fileID: 0}
     - target: {fileID: 6467571431674914502, guid: c743d11014e577c4ca5f01e8cdfaa2a3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2130,6 +2130,14 @@ PrefabInstance:
     - target: {fileID: 2927311636632208134, guid: 35686e8c2ffb4174799621c84c5f9e1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602398607897481691, guid: 35686e8c2ffb4174799621c84c5f9e1a, type: 3}
+      propertyPath: highFlyRange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602398607897481691, guid: 35686e8c2ffb4174799621c84c5f9e1a, type: 3}
+      propertyPath: baseFlyHeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
