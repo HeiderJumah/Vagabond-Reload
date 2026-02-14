@@ -28,6 +28,7 @@ public enum EnemyCategory
     skeleton,
     swordSkeleton,
     bat,
+    ghost,
     golemBoss
 }
 

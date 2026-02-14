@@ -413,6 +413,11 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyCategory.rabbit:
                 break;
+            case EnemyCategory.ghost:
+                Ghost ghost = GetComponent<Ghost>();
+                if (ghost != null)
+                    ghost.Attack();
+                break;
             case EnemyCategory.golemBoss:
                 break;
         }
