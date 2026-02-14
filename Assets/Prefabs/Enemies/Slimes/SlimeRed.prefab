@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 2875888671084912864}
   - component: {fileID: 8352170193032852679}
   - component: {fileID: 2161527757023148149}
-  - component: {fileID: 4948167751916816900}
   - component: {fileID: 8161417345125069528}
   - component: {fileID: 626657593127052666}
   - component: {fileID: 3055152959888457736}
@@ -341,7 +340,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.40636414
   m_Center: {x: 0, y: 0.40038675, z: 0.055396378}
---- !u!114 &4948167751916816900
+--- !u!114 &8161417345125069528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -350,7 +349,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8429425128755658987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069272e7e4ef98442b7b61c8de5d2a6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 733f1945b44b65b4a97f5f2154c13bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthLerpSpeed: 3
@@ -364,19 +363,6 @@ MonoBehaviour:
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
---- !u!114 &8161417345125069528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8429425128755658987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 733f1945b44b65b4a97f5f2154c13bd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyTypes: {fileID: 11400000, guid: dbe66187cbfcaa84e86c4c534a96a5eb, type: 2}
   playerMask:
     serializedVersion: 2
     m_Bits: 8192

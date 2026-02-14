@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class Slime : Enemy
 {
     [Header("References")]
-    [SerializeField] EnemyTypes enemyTypes;
+    //[SerializeField] EnemyTypes enemyTypes;
     [SerializeField] private LayerMask playerMask;
 
     /// <summary>
@@ -11,9 +11,9 @@ public class Slime : MonoBehaviour
     /// </summary>
     public void Attack()
     {
-        Vector3 center = transform.position + transform.forward * enemyTypes.attackRange;
+        Vector3 center = transform.position + transform.forward * Type.attackRange;
 
-        Collider[] hitCollider = Physics.OverlapSphere(center, enemyTypes.attackRange, playerMask);
+        Collider[] hitCollider = Physics.OverlapSphere(center, Type.attackRange, playerMask);
         Debug.Log($"Hit colliders count: {hitCollider.Length}");
         foreach (Collider col in hitCollider)
         {
@@ -26,7 +26,7 @@ public class Slime : MonoBehaviour
             }
             if (player != null)
             {
-                player.OnTakeDamage(enemyTypes.damage);
+                player.OnTakeDamage(Type.damage);
                 VariantEffects(player);
             }
         }
@@ -34,7 +34,7 @@ public class Slime : MonoBehaviour
 
     private void VariantEffects(PlayerActions player)
     {
-        switch(enemyTypes.variant)
+        switch(Type.variant)
         {
             case Variant.One:
                 player.BurnedStatus(5f);
@@ -50,15 +50,15 @@ public class Slime : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (enemyTypes == null)
+        if (Type == null)
             return;
 
 
-        Vector3 center = transform.position + transform.forward * enemyTypes.attackRange;
+        Vector3 center = transform.position + transform.forward * Type.attackRange;
 
         // Draw a semi-transparent red sphere
         Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-        Gizmos.DrawSphere(center, enemyTypes.attackRange);
+        Gizmos.DrawSphere(center, Type.attackRange);
     }
 
 }

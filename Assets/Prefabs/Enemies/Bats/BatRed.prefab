@@ -112,7 +112,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6968143124076100958}
-  - component: {fileID: 8981034523606542130}
   - component: {fileID: 3589815586058196264}
   - component: {fileID: 7220879845157659573}
   - component: {fileID: 2718095438208015724}
@@ -142,7 +141,7 @@ Transform:
   - {fileID: 3758506634546627661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8981034523606542130
+--- !u!114 &3589815586058196264
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6868166879470349571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069272e7e4ef98442b7b61c8de5d2a6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 68626c3f97b041c4da159d8dbe09af27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthLerpSpeed: 3
@@ -165,19 +164,11 @@ MonoBehaviour:
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
---- !u!114 &3589815586058196264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6868166879470349571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68626c3f97b041c4da159d8dbe09af27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: {fileID: 11400000, guid: 1e939177ac87ec045a6e17d50d23b62d, type: 2}
+  baseFlyHeight: 0
+  hoverRange: 1
+  hoverSpeed: 2
+  highFlyRange: 2
+  highFlySpeed: 1
   projectileObject: {fileID: 2036222018620549299, guid: dfddac9db699a26499fc77dc976dee86, type: 3}
   shootPoint: {fileID: 3758506634546627661}
 --- !u!114 &7220879845157659573
@@ -260,7 +251,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7716553848713114194
 GameObject:

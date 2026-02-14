@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 2151365369513665864}
   - component: {fileID: 9089387863340685739}
   - component: {fileID: 6939970465110772026}
-  - component: {fileID: 3824610080574742482}
   - component: {fileID: 8863102923527039348}
   - component: {fileID: 6091630763382389461}
   - component: {fileID: 5576698542874399501}
@@ -340,29 +339,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.40636414
   m_Center: {x: 0, y: 0.40038675, z: 0.055396378}
---- !u!114 &3824610080574742482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6008733446300516943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069272e7e4ef98442b7b61c8de5d2a6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthLerpSpeed: 3
-  healthCanvas: {fileID: 5149094645419451009}
-  healthbar: {fileID: 1732001952631708702}
-  hitColor: {r: 1, g: 1, b: 1, a: 1}
-  hitIndicatorDuration: 0.1
-  enemyType: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  avoidDistance: 2
-  rayAngle: 45
 --- !u!114 &8863102923527039348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,7 +351,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733f1945b44b65b4a97f5f2154c13bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTypes: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
+  healthLerpSpeed: 3
+  healthCanvas: {fileID: 5149094645419451009}
+  healthbar: {fileID: 1732001952631708702}
+  hitColor: {r: 1, g: 1, b: 1, a: 1}
+  hitIndicatorDuration: 1
+  enemyType: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  avoidDistance: 2
+  rayAngle: 45
   playerMask:
     serializedVersion: 2
     m_Bits: 8192

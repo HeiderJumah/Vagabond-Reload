@@ -4,15 +4,16 @@ public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float projectileSpeed = 1f;
     private float lifetime;
-    private Bat sourceBat;
+    //private Bat sourceBat;
+    private Enemy sourceEnemy;
     private Vector3 startPos;
 
 
 
-    public void Init(Bat bat)
+    public void Init(Enemy enemy)
     {
-        sourceBat = bat;
-        lifetime = bat.enemyType.attackRange + 1.5f;
+        sourceEnemy = enemy;
+        lifetime = enemy.Type.attackRange + 1.5f;
         startPos = transform.position;
     }
 
@@ -26,7 +27,7 @@ public class EnemyProjectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(sourceBat == null)
+        if(sourceEnemy == null)
         {
             Destroy(gameObject);
             return; 
@@ -35,8 +36,12 @@ public class EnemyProjectile : MonoBehaviour
         PlayerActions player = other.GetComponent<PlayerActions>();
         if (player != null && player.IsAlive)
         {
-            player.OnTakeDamage(sourceBat.enemyType.damage);
-            sourceBat.VariantEffects(player);
+            player.OnTakeDamage(sourceEnemy.Type.damage);
+            Bat bat = sourceEnemy as Bat;
+            if (bat != null)
+            {
+                bat.VariantEffects(player);
+            }
             Destroy(gameObject);
         }
     }

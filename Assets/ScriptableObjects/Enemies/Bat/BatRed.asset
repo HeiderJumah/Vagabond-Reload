@@ -17,7 +17,7 @@ MonoBehaviour:
   speed: 4
   damage: 0.75
   attackRange: 3
-  targetingRange: 7
+  targetingRange: 10
   attackCooldown: 2
   loot: {fileID: 6058641332858068551, guid: aa29c7acc33e30844817cdff13d9767a, type: 3}
   enemyCategory: 5

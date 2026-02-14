@@ -23,27 +23,28 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float hitIndicatorDuration = 1f;
 
     [Header("Patrolling")]
-    private Vector3 patrolTarget;
+    protected Vector3 patrolTarget;
 
     [Header("References")]
-    [SerializeField] private EnemyTypes enemyType;
-    private Transform playerTransform;
+    [SerializeField] protected EnemyTypes enemyType;
+    public EnemyTypes Type => enemyType;
+    protected Transform playerTransform;
     private PlayerActions playerActions;
-    private Vector3 originalPosition;
-    private EnemyAnimation enemyAnimation;
+    protected Vector3 originalPosition;
+    protected EnemyAnimation enemyAnimation;
     private Coroutine attackRoutine;
     private Coroutine smoothHealthRoutine;
     private Color[] originalColors;
     private Coroutine hitIndicatorRoutine;
-    private Coroutine patrolRoutine;
+    protected Coroutine patrolRoutine;
     private Vector3 deathPosition;
 
     [Header("bools")]
-    private bool isDead = false;
+    protected bool isDead = false;
     private bool canAttack = true;
-    private bool canMove = true;
+    protected bool canMove = true;
     private bool showHealthbar = false;
-    private bool isPatrolling = false;
+    protected bool isPatrolling = false;
 
     [Header("Obstacle Detection")]
     [SerializeField] private LayerMask obstacleLayer;
@@ -312,7 +313,7 @@ public class Enemy : MonoBehaviour
         patrolRoutine = StartCoroutine(PatrolRoutine());
     }
 
-    private IEnumerator PatrolRoutine()
+    protected virtual IEnumerator PatrolRoutine()
     {
         while (isPatrolling && !isDead)
         {
@@ -341,7 +342,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void ChasePlayer()
+    protected virtual void ChasePlayer()
     {
         if (!canMove)
             return;
@@ -484,7 +485,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private Vector3 GetMoveDirection(Vector3 targetPosition)
+    protected virtual Vector3 GetMoveDirection(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
 
