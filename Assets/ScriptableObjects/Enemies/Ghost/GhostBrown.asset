@@ -20,7 +20,7 @@ MonoBehaviour:
   targetingRange: 10
   attackCooldown: 2
   loot: {fileID: 6058641332858068551, guid: 06f751930c993984e9cd1d5ad6c5f85d, type: 3}
-  enemyCategory: 6
+  enemyCategory: 5
   variant: 1
   attackWindup: 0.4
   hitKnockbackResistance: 0.8

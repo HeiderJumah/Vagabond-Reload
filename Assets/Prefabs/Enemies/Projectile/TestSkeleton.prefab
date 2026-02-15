@@ -149,10 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd3f606a6a567e449af931b587f8ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flightDuration: 1.4
-  arcHeight: 2
-  aoeRadius: 2
+  flightDuration: 0.8
+  arcHeight: 3
+  aoeRadius: 1
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
   aoeDecal: {fileID: 503744383619947683, guid: 44a044495301f1543a3dd350cd15c762, type: 3}
+  aoeTimerDecal: {fileID: 503744383619947683, guid: a42d27a935d63864eaaeeaaf593e4eb8, type: 3}

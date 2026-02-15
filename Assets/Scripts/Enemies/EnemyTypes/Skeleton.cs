@@ -30,6 +30,9 @@ public class Skeleton : Enemy
 
     private IEnumerator RangedSkeletonAttack()
     {
+
+        enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
+
         yield return new WaitForSeconds(enemyType.attackWindup);
 
         ThrowBone();

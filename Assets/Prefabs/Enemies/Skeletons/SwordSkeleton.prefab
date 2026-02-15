@@ -808,6 +808,8 @@ MonoBehaviour:
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
+  projectileObject: {fileID: 2036222018620549299, guid: 56f50115093c6fd41903888303586a83, type: 3}
+  shootPoint: {fileID: 7373259410174242878}
   playerMask:
     serializedVersion: 2
     m_Bits: 8192

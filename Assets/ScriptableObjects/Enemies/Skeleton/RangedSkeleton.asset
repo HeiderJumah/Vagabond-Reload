@@ -17,12 +17,12 @@ MonoBehaviour:
   speed: 4
   damage: 1.25
   attackRange: 5
-  targetingRange: 7
+  targetingRange: 9
   attackCooldown: 3
   loot: {fileID: 900153470135791793, guid: 1366b1473921859469704db737bf611f, type: 3}
   enemyCategory: 3
   variant: 0
-  attackWindup: 0.6
+  attackWindup: 0.4
   hitKnockbackResistance: 1
   patrollingRange: 5
   patrolWaitTime: 6
