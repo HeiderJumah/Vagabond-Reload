@@ -32,8 +32,10 @@ public class Rabbit : Enemy
                 LifeSteal(Type.damage / 2);
                 break;
             case Variant.Two:
+                LifeSteal(Type.damage);
                 break;
             case Variant.Three:
+                LifeSteal(Type.damage * 2);
                 break;
         }
     }

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa25f26c02f00d84c82d48ceb6e93816, type: 3}
-  m_Name: Rabbit
+  m_Name: SwordSkeleton
   m_EditorClassIdentifier: 
-  enemyName: Rabbit
-  health: 8
-  speed: 6
-  damage: 0.5
-  attackRange: 2
+  enemyName: Skeleton
+  health: 10
+  speed: 4
+  damage: 1.25
+  attackRange: 1.25
   targetingRange: 7
   attackCooldown: 3
   loot: {fileID: 900153470135791793, guid: 1366b1473921859469704db737bf611f, type: 3}
-  enemyCategory: 1
+  enemyCategory: 3
   variant: 1
-  attackWindup: 0.4
+  attackWindup: 0.6
   hitKnockbackResistance: 1
   patrollingRange: 5
   patrolWaitTime: 6

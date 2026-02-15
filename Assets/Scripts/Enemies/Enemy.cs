@@ -396,22 +396,26 @@ public class Enemy : MonoBehaviour
 
         canAttack = false;
         canMove = false;
-        
-        enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
 
+        if (enemyType.enemyCategory != EnemyCategory.skeleton)
+        {
+            enemyAnimation.SetAnimationState(EnemyAnimationState.AttackOne);
+        }
         if(attackRoutine != null)
             StopCoroutine(attackRoutine);
+            attackRoutine = StartCoroutine(AttackRoutine());
 
-        attackRoutine = StartCoroutine(AttackRoutine());
-
-        StartCoroutine(AttackEnd());
+            StartCoroutine(AttackEnd());
     }
 
     private IEnumerator AttackRoutine()
     { 
         // windup time so the player has a chance to evade
-        yield return  new WaitForSeconds(enemyType.attackWindup);
+        if(enemyType.enemyCategory != EnemyCategory.skeleton)
+        {
+            yield return  new WaitForSeconds(enemyType.attackWindup);
 
+        }
         if(playerActions == null || !playerActions.IsAlive)
             yield break;
 
@@ -423,8 +427,9 @@ public class Enemy : MonoBehaviour
                     slime.Attack();
                 break;
             case EnemyCategory.skeleton:
-                break;
-            case EnemyCategory.swordSkeleton:
+                Skeleton skeleton = GetComponent<Skeleton>();
+                if (skeleton != null)
+                    skeleton.Attack();
                 break;
             case EnemyCategory.bat:
                 Bat bat = GetComponent<Bat>();

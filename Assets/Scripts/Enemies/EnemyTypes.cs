@@ -26,7 +26,6 @@ public enum EnemyCategory
     rabbit,
     goblin,
     skeleton,
-    swordSkeleton,
     bat,
     ghost,
     golemBoss

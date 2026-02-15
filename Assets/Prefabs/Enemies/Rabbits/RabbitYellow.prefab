@@ -55,7 +55,7 @@ MonoBehaviour:
   healthbar: {fileID: 4596434824465436483}
   hitColor: {r: 1, g: 1, b: 1, a: 1}
   hitIndicatorDuration: 0.1
-  enemyType: {fileID: 11400000, guid: f075976dff526d444bb6e70e747185eb, type: 2}
+  enemyType: {fileID: 11400000, guid: 42e325dc4453851478526f211e234d40, type: 2}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4096
