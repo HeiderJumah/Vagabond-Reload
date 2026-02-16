@@ -584,7 +584,7 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
-  projectileObject: {fileID: 2036222018620549299, guid: ac10202827061564eac2ce6285206bfd, type: 3}
+  projectileObject: {fileID: 2563367048361488215, guid: a883fc4ec26ffda4cb1f2587865bf1a2, type: 3}
   shootPoint: {fileID: 5820608432015051907}
 --- !u!54 &6030117688837194477
 Rigidbody:

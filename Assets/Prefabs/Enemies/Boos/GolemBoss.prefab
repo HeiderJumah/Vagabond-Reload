@@ -1392,7 +1392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6639176057286342646
 Transform:
   m_ObjectHideFlags: 0
@@ -1465,6 +1465,7 @@ MonoBehaviour:
     m_Bits: 8192
   aoeDecal: {fileID: 503744383619947683, guid: 44a044495301f1543a3dd350cd15c762, type: 3}
   aoeTimerDecal: {fileID: 503744383619947683, guid: a42d27a935d63864eaaeeaaf593e4eb8, type: 3}
+  closeRangeAdjust: 2
 --- !u!114 &6331761549954236317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,7 +1707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8346273120027703000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1978,7 +1979,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -420, y: -70}
-  m_SizeDelta: {x: 800, y: 100}
+  m_SizeDelta: {x: 800, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4583695249619152149
 CanvasRenderer:
@@ -2212,7 +2213,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -420, y: -70}
-  m_SizeDelta: {x: 800, y: 100}
+  m_SizeDelta: {x: 800, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4264287583498196141
 CanvasRenderer:

@@ -1048,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GolemBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 5193238501937226567, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6639176057286342646, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.224312
@@ -1087,10 +1091,6 @@ PrefabInstance:
     - target: {fileID: 6639176057286342646, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167044418145813619, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
-      propertyPath: closeRangeAdjust
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1882,6 +1882,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ca42dfa69d2b7045897102efe416068, type: 3}
+--- !u!1 &1890675905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5193238501937226567, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
+  m_PrefabInstance: {fileID: 1020828202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2099716524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2764,7 +2769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4796191351347061941, guid: 774f744d69a43df438d4128be2f4c504, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5533967213300552888, guid: 774f744d69a43df438d4128be2f4c504, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2806,6 +2811,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8952154504100474876, guid: 774f744d69a43df438d4128be2f4c504, type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 1890675905}
     - target: {fileID: 8952154504100474876, guid: 774f744d69a43df438d4128be2f4c504, type: 3}
       propertyPath: barrier
       value: 
@@ -2951,6 +2960,7 @@ SceneRoots:
   - {fileID: 1256159382}
   - {fileID: 818855858}
   - {fileID: 7212643031113191202}
+  - {fileID: 3281120945498321417}
   - {fileID: 1863560169}
   - {fileID: 122985314185756398}
   - {fileID: 8208473378108206155}
@@ -2963,7 +2973,6 @@ SceneRoots:
   - {fileID: 780764940014718975}
   - {fileID: 2317149567088568509}
   - {fileID: 5562307397318642658}
-  - {fileID: 3281120945498321417}
   - {fileID: 9126413329300553489}
   - {fileID: 1023784304}
   - {fileID: 1391832500}
