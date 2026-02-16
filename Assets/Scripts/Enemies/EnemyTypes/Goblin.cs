@@ -71,7 +71,7 @@ public class Goblin : Enemy
 
     private void ArcherAttack()
     {
-        if (projectileObject != null || shootPoint == null || Type == null)
+        if (projectileObject == null || shootPoint == null || Type == null)
             return;
 
         // spawn projectile 
@@ -88,6 +88,7 @@ public class Goblin : Enemy
         if (enemyProjectile != null) 
             enemyProjectile.Init(this);
         
+        enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);
     }
 
 }
