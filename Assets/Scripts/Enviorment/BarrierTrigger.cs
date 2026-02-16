@@ -8,8 +8,10 @@ public class BarrierTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerActions player = other.GetComponent<PlayerActions>();
-        if(player != null)
+        if (player != null)
+        {
             barrier.gameObject.SetActive(true);
             boss.gameObject.SetActive(true);
+        }
     }
 }
