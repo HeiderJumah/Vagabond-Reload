@@ -19,6 +19,9 @@ public class EnemyTypes : ScriptableObject
     public float knockback = 1f;
     public float patrollingRange;
     public float patrolWaitTime;
+    public float attackCloseRange;
+    public float attackMulitplier = 1f;
+    public float closeRangeAoe = 1f;
 }
 
 public enum EnemyCategory

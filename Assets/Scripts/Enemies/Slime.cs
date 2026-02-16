@@ -8,7 +8,7 @@ public class Slime : Enemy
     /// <summary>
     /// For now simple attack logic, can be expended later with different slime EnemyTypes
     /// </summary>
-    public void Attack()
+    public void SlimeAttack()
     {
         Vector3 center = transform.position + transform.forward * Type.attackRange;
 

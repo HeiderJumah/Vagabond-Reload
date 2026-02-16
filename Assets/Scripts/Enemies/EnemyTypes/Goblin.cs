@@ -10,7 +10,7 @@ public class Goblin : Enemy
     [SerializeField] private GameObject projectileObject;
     [SerializeField] private Transform shootPoint;
 
-    public void Attack()
+    public void GoblinAttack()
     {
         switch(Type.variant)
         {

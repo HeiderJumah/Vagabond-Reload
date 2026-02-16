@@ -77,7 +77,7 @@ public class Bat : Enemy
         }
     }
 
-    public void Attack()
+    public void BatAttack()
     {
         if (projectileObject == null || shootPoint == null || enemyType == null)
             return;

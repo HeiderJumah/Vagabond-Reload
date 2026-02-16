@@ -3,7 +3,7 @@ using UnityEngine;
 public class Rabbit : Enemy
 {
     [SerializeField] private LayerMask playerMask;
-    public void Attack()
+    public void RabbitAttack()
     {
         Vector3 origin = transform.position + transform.forward * 0.3f + Vector3.up * 0.5f;
         // half the size 

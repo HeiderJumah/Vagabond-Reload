@@ -95,7 +95,9 @@ public class BoneProjectile : MonoBehaviour
             PlayerActions player = c.GetComponent<PlayerActions>();
             if(player != null)
             {
-                player.OnTakeDamage (sourceEnemy.Type.damage);
+                float damageToApply = sourceEnemy.Type.damage * sourceEnemy.Type.attackMulitplier;
+
+                player.OnTakeDamage (damageToApply);
             }
         }
         Cleanup();

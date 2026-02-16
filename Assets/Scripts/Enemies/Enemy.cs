@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     private PlayerActions playerActions;
     protected Vector3 originalPosition;
     protected EnemyAnimation enemyAnimation;
-    private Coroutine attackRoutine;
+    protected Coroutine attackRoutine;
     private Coroutine smoothHealthRoutine;
     private Color[] originalColors;
     private Coroutine hitIndicatorRoutine;
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     [Header("bools")]
     protected bool isDead = false;
-    private bool canAttack = true;
+    protected bool canAttack = true;
     protected bool canMove = true;
     private bool showHealthbar = false;
     protected bool isPatrolling = false;
@@ -262,7 +262,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator AttackEnd()
+    protected virtual IEnumerator AttackEnd()
     {
         yield return null ; // wait to switch states
 
@@ -298,7 +298,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void HandleEnemyBehavior()
+    protected virtual void HandleEnemyBehavior()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
@@ -382,7 +382,7 @@ public class Enemy : MonoBehaviour
         transform.position += direction * enemyType.speed * Time.deltaTime;
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         if(!canAttack)
             return;
@@ -424,34 +424,32 @@ public class Enemy : MonoBehaviour
             case EnemyCategory.slime:
                 Slime slime = GetComponent<Slime>();
                 if (slime != null)
-                    slime.Attack();
+                    slime.SlimeAttack();
                 break;
             case EnemyCategory.skeleton:
                 Skeleton skeleton = GetComponent<Skeleton>();
                 if (skeleton != null)
-                    skeleton.Attack();
+                    skeleton.SkeletonAttack();
                 break;
             case EnemyCategory.bat:
                 Bat bat = GetComponent<Bat>();
                 if (bat != null)
-                    bat.Attack();
+                    bat.BatAttack();
                 break;
             case EnemyCategory.goblin:
                 Goblin goblin = GetComponent<Goblin>();
                 if (goblin != null)
-                    goblin.Attack();
+                    goblin.GoblinAttack();
                 break;
             case EnemyCategory.rabbit:
                 Rabbit rabbit = GetComponent<Rabbit>();
                 if (rabbit != null)
-                    rabbit.Attack();
+                    rabbit.RabbitAttack();
                 break;
             case EnemyCategory.ghost:
                 Ghost ghost = GetComponent<Ghost>();
                 if (ghost != null)
-                    ghost.Attack();
-                break;
-            case EnemyCategory.golemBoss:
+                    ghost.GhostAttack();
                 break;
         }
 
@@ -467,7 +465,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void ReturnToSpawn()
+    protected virtual void ReturnToSpawn()
     {
         float distanceToSpawn = Vector3.Distance(transform.position, originalPosition);
 

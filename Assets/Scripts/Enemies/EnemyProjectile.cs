@@ -36,7 +36,9 @@ public class EnemyProjectile : MonoBehaviour
         PlayerActions player = other.GetComponent<PlayerActions>();
         if (player != null && player.IsAlive)
         {
-            player.OnTakeDamage(sourceEnemy.Type.damage);
+            float damageToApply = sourceEnemy.Type.damage * sourceEnemy.Type.attackMulitplier;
+
+            player.OnTakeDamage(damageToApply);
             Bat bat = sourceEnemy as Bat;
             if (bat != null)
             {

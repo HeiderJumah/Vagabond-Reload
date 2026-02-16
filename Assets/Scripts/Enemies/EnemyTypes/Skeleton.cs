@@ -14,7 +14,7 @@ public class Skeleton : Enemy
     [Header("Player Detection")]
     [SerializeField] private LayerMask playerMask;
 
-    public void Attack()
+    public void SkeletonAttack()
     {
         switch (Type.variant)
         {

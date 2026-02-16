@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa25f26c02f00d84c82d48ceb6e93816, type: 3}
-  m_Name: test
+  m_Name: Golem
   m_EditorClassIdentifier: 
-  enemyName: name
-  health: 10
-  speed: 5
+  enemyName: Golem
+  health: 50
+  speed: 4
   damage: 1
-  attackRange: 1
-  targetingRange: 12
-  attackCooldown: 2
-  loot: {fileID: 0}
-  enemyCategory: 0
+  attackRange: 10
+  targetingRange: 15
+  attackCooldown: 3
+  loot: {fileID: 900153470135791793, guid: 1366b1473921859469704db737bf611f, type: 3}
+  enemyCategory: 6
   variant: 0
-  attackWindup: 0.4
-  hitKnockbackResistance: 1
-  knockback: 1
-  patrollingRange: 0
-  patrolWaitTime: 0
-  attackCloseRange: 0
+  attackWindup: 0.6
+  hitKnockbackResistance: 6
+  knockback: 6
+  patrollingRange: 7
+  patrolWaitTime: 6
+  attackCloseRange: 4
+  attackMulitplier: 1.5
+  closeRangeAoe: 5

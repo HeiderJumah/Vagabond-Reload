@@ -72,7 +72,7 @@ public class Ghost : Enemy
         }
     }
 
-    public void Attack()
+    public void GhostAttack()
     {
         Vector3 center = transform.position + transform.forward * Type.attackRange;
 
