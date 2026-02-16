@@ -10,4 +10,5 @@ public class PlayerStats : ScriptableObject
     public float attackRange = 1f;
     public float attackCooldown = 1f; 
     public float knockBack = 1f;
+    public float knockbackResist = 1f;
 }

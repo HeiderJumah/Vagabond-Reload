@@ -24,5 +24,6 @@ MonoBehaviour:
   variant: 0
   attackWindup: 0.5
   hitKnockbackResistance: 0.8
+  knockback: 3
   patrollingRange: 5
   patrolWaitTime: 4

@@ -15,7 +15,8 @@ public class EnemyTypes : ScriptableObject
     public EnemyCategory enemyCategory;
     public Variant variant;
     public float attackWindup = 0.4f;
-    public float hitKnockbackResistance = 1f; 
+    public float hitKnockbackResistance = 1f;
+    public float knockback = 1f;
     public float patrollingRange;
     public float patrolWaitTime;
 }

@@ -51,6 +51,7 @@ public class Goblin : Enemy
             if (playerActions != null)
             {
                 playerActions.OnTakeDamage(Type.damage);
+                playerActions.ApplyKnockback(transform.position, Type.knockback);
             }
         }
         enemyAnimation.SetAnimationState(EnemyAnimationState.Idle);

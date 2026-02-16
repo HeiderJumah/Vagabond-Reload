@@ -2136,6 +2136,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin_Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 2671257309219351819, guid: c654da7cf951ea6499b8fc6f8e8e5ef2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3339954526552537009, guid: c654da7cf951ea6499b8fc6f8e8e5ef2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.035

@@ -369,6 +369,40 @@ public class PlayerActions : MonoBehaviour
     {
 
     }
+
+    public void ApplyKnockback(Vector3 source, float force)
+    {
+        if (!IsAlive)
+            return;
+
+        // get direction of knockback
+        Vector3 knockbackDirection = transform.position - source;
+        knockbackDirection.Normalize();
+        knockbackDirection.y = 0f;
+
+        // account enemies knockback resistance 
+        float forceAdjustment = force / playerStats.knockbackResist;
+        Vector3 targetPostion = transform.position + knockbackDirection * forceAdjustment;
+
+        // Apply smooth knockback  
+        StartCoroutine(SmoothKnockback(targetPostion, 0.2f));
+    }
+
+    private IEnumerator SmoothKnockback(Vector3 targetPosition, float duration)
+    {
+        Vector3 startPos = transform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, targetPosition, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.position = targetPosition;
+    }
+
+
     /// <summary>
     /// Chat gpt for debug 
     /// </summary>
