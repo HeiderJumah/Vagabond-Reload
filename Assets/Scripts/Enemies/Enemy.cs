@@ -437,6 +437,9 @@ public class Enemy : MonoBehaviour
                     bat.Attack();
                 break;
             case EnemyCategory.goblin:
+                Goblin goblin = GetComponent<Goblin>();
+                if (goblin != null)
+                    goblin.Attack();
                 break;
             case EnemyCategory.rabbit:
                 Rabbit rabbit = GetComponent<Rabbit>();

@@ -269,6 +269,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -8896467862655235603, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7277885a6e5a914d8354d11533ec852, type: 2}
     - target: {fileID: -8841537252123826135, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -581,6 +585,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6933291646529926235, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7277885a6e5a914d8354d11533ec852, type: 2}
     - target: {fileID: 7078479097554804723, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -609,6 +617,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7986092759490162862, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7277885a6e5a914d8354d11533ec852, type: 2}
     - target: {fileID: 8032286215750651454, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -657,6 +669,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1366708045825937941}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2241140766442599797}
   m_SourcePrefab: {fileID: 100100000, guid: be3776e9bd6e31341b3490a035f6ea50, type: 3}
 --- !u!4 &406825986714377522 stripped
 Transform:
@@ -731,3 +746,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0f82d5b0a21634192ba5d0b48b2b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2241140766442599797
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075945489262856072}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
