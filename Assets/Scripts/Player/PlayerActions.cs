@@ -24,7 +24,7 @@ public class PlayerActions : MonoBehaviour
 
     [Header("PlayerAttackConditions")]
     private float holdAttackTimer;
-    [SerializeField] private float holdAttackTime = 0.6f;
+    [SerializeField] private float holdAttackTime = 0.2f;
     public bool isHoldingAttack = false;
     public bool isStrongAttack = false;
     public bool canAttack = true;
@@ -56,7 +56,8 @@ public class PlayerActions : MonoBehaviour
 
     void Update()
     {
-        Attack(); 
+        Attack();
+        HealPlayer();
     }
     private void Attack()
     {
@@ -66,7 +67,7 @@ public class PlayerActions : MonoBehaviour
         if (playerMovement.isJumping)
             return;
         if(isAttacking)
-            return ;
+            return;
 
         if (mouse.leftButton.wasPressedThisFrame)
         {
@@ -79,38 +80,55 @@ public class PlayerActions : MonoBehaviour
             holdAttackTimer = 0f;
 
         }
-        if(mouse.leftButton.isPressed && isHoldingAttack)
+
+        // strong attack when holding mouse button 
+        if (mouse.leftButton.isPressed && isHoldingAttack)
         {
             holdAttackTimer += Time.deltaTime;
-        }
-        if(mouse.leftButton.wasReleasedThisFrame && isHoldingAttack)
-        {
-            isHoldingAttack = false;
 
-            isStrongAttack = holdAttackTimer >= holdAttackTime;
-
-            playerMovement.canMove = false;
-            playerMovement.canJump = false;
-            isAttacking = true;
-
-            switch (weaponType.attackType)
+            if(holdAttackTimer >= holdAttackTime)
             {
-                case AttackType.BareHand:
-                    playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.BareHandStrong : PlayerAnimationState.BareHandAttack);
-                    break;
-                case AttackType.Sword:
-                    playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.StrongAttack : PlayerAnimationState.Attack);
-                    StartCoroutine(DealSwordDamage());
-                    break ;
-                case AttackType.Ranged:
-                    playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.RangedStrong : PlayerAnimationState.RangedAttack);
-                    break ;
-                case AttackType.Magic:
-                    playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.MagicStrong : PlayerAnimationState.MagicAttack);
-                    break ;
+                isHoldingAttack = false;
+                TriggerAttack(true);
             }
 
         }
+
+        if(mouse.leftButton.wasReleasedThisFrame && isHoldingAttack)
+        {
+            isHoldingAttack = false ;
+            TriggerAttack(false); // normal attack 
+        }
+
+    }
+
+    private void TriggerAttack(bool strong)
+    {
+        isStrongAttack = strong;
+
+        playerMovement.canMove = false ;
+        playerMovement.canJump = false ;
+        playerMovement.canDodge = false ;
+        isAttacking = true ;
+
+        switch(weaponType.attackType)
+        {
+            case AttackType.BareHand:
+                playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.BareHandStrong : PlayerAnimationState.BareHandAttack);
+                break;
+            case AttackType.Sword:
+                playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.StrongAttack : PlayerAnimationState.Attack);
+                StartCoroutine(DealSwordDamage());
+                break;
+            case AttackType.Ranged:
+                playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.RangedStrong : PlayerAnimationState.RangedAttack);
+                break;
+            case AttackType.Magic:
+                playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.MagicStrong : PlayerAnimationState.MagicAttack);
+                break;
+
+        }
+
     }
 
     public IEnumerator OnAttackEnded()
@@ -143,29 +161,47 @@ public class PlayerActions : MonoBehaviour
         trueDamage = playerStats.damage * weaponType.power * (isStrongAttack ? 2f : 1f);
         trueRange = playerStats.attackRange * weaponType.weaponRange;
         if (isStrongAttack)
+        {
             trueRange *= 1.5f;
 
-        Vector3 center = transform.position + transform.forward * trueRange;
-
-        Collider[] hitCollider = Physics.OverlapSphere(center, trueRange, enemyMask);
-        Debug.Log($"Hit colliders count: {hitCollider.Length}");
-        foreach (Collider collider in hitCollider)
-        {
-            Debug.Log("Hit collider: " + collider.name);
-            Enemy enemy = collider.GetComponent<Enemy>();
-            if (enemy == null)
+            // Deal Damage
+            Collider[] hitCollider = Physics.OverlapSphere(transform.position, trueRange, enemyMask);
+            foreach (Collider collider in hitCollider)
             {
-                enemy = collider.GetComponentInParent<Enemy>();
-                Debug.LogWarning("No Enemy component found for collider: " + collider.name);
+                Enemy enemy = collider.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(playerStats.damage);
+                    enemy.ApplyKnockback(transform.position, playerStats.knockBack * 1.5f);
+                }
             }
-            if (enemy != null)
-            {
-                Debug.Log($"Enemy layer: {enemy.gameObject.layer}");
-                Debug.Log("Enemy detected: " + enemy.name);
-                enemy.TakeDamage(trueDamage);
 
-                // Apply knockback 
-                enemy.ApplyKnockback(transform.position, playerStats.knockBack * weaponType.weaponKnockBack);
+        }
+        else
+        {
+
+            Vector3 center = transform.position + transform.forward * trueRange;
+
+            Collider[] hitCollider = Physics.OverlapSphere(center, trueRange, enemyMask);
+            Debug.Log($"Hit colliders count: {hitCollider.Length}");
+            foreach (Collider collider in hitCollider)
+            {
+                Debug.Log("Hit collider: " + collider.name);
+                Enemy enemy = collider.GetComponent<Enemy>();
+                if (enemy == null)
+                {
+                    enemy = collider.GetComponentInParent<Enemy>();
+                    Debug.LogWarning("No Enemy component found for collider: " + collider.name);
+                }
+                if (enemy != null)
+                {
+                    Debug.Log($"Enemy layer: {enemy.gameObject.layer}");
+                    Debug.Log("Enemy detected: " + enemy.name);
+                    enemy.TakeDamage(trueDamage);
+
+                    // Apply knockback 
+                    enemy.ApplyKnockback(transform.position, playerStats.knockBack * weaponType.weaponKnockBack);
+                }
             }
         }
         StartCoroutine(OnAttackEnded());
@@ -331,7 +367,26 @@ public class PlayerActions : MonoBehaviour
 
     private void HealPlayer()
     {
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+            return;
 
+        if (keyboard.pKey.wasPressedThisFrame)
+        {
+            currentHealth = Mathf.Clamp(currentHealth + 1f, 0, maxHealth);
+            OnHealthChanged?.Invoke(currentHealth);
+
+            if(!IsAlive)
+            {
+                IsAlive = true;
+
+                canAttack = true;
+                playerMovement.canJump = true;
+                playerMovement.canMove = true;
+                playerAnimation.SetAnimationState(PlayerAnimationState.Idle, true);
+            }
+
+        }
     }
 
     #region Knockback
@@ -378,17 +433,21 @@ public class PlayerActions : MonoBehaviour
         if (weaponType == null || playerStats == null)
             return;
 
-        // Calculate the true damage/range just like in DealSwordDamage
         float displayRange = playerStats.attackRange * weaponType.weaponRange;
 
-        // Optional: If holding attack, show the stronger range
-        displayRange *= isStrongAttack ? 1.5f : 1f;
+        Gizmos.color = new Color(1f, 0f, 0f, 0.4f);
 
-        Vector3 center = transform.position + transform.forward * displayRange;
-
-        // Draw a semi-transparent red sphere
-        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-        Gizmos.DrawSphere(center, displayRange);
+        if (isStrongAttack)
+        {
+            // Strong attack = AOE around player
+            Gizmos.DrawSphere(transform.position, displayRange * 1.5f);
+        }
+        else
+        {
+            // Normal attack = forward sphere
+            Vector3 center = transform.position + transform.forward * displayRange;
+            Gizmos.DrawSphere(center, displayRange);
+        }
     }
 
 

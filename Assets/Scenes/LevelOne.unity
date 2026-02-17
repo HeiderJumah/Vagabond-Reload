@@ -563,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6008733446300516943, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8863102923527039348, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
       propertyPath: hitIndicatorDuration
@@ -978,6 +978,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7831462565027355368, guid: afdad964416544c4ba96fe93a83c5ebf, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7864672281760996374, guid: afdad964416544c4ba96fe93a83c5ebf, type: 3}
       propertyPath: m_Name
       value: GhostViolet
@@ -1186,7 +1190,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7831462565027355368, guid: 37f5a0c1662e4644caffc38602b08583, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7864672281760996374, guid: 37f5a0c1662e4644caffc38602b08583, type: 3}
       propertyPath: m_Name
@@ -1251,7 +1255,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 428549505878064269, guid: c743d11014e577c4ca5f01e8cdfaa2a3, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6467571431674914502, guid: c743d11014e577c4ca5f01e8cdfaa2a3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1485,7 +1489,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7831462565027355368, guid: bd2b843766a2cf04d89792de172ea9de, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7864672281760996374, guid: bd2b843766a2cf04d89792de172ea9de, type: 3}
       propertyPath: m_Name
@@ -2183,7 +2187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6980112394111787703, guid: ac7d8e3a5385a034e85fed1335501611, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2322,7 +2326,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3047481900610524349, guid: 3feca05a24845064d98ae8e147ec2a3c, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3446558678867145180, guid: 3feca05a24845064d98ae8e147ec2a3c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2618,7 +2622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854722307209545141, guid: 35686e8c2ffb4174799621c84c5f9e1a, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5602398607897481691, guid: 35686e8c2ffb4174799621c84c5f9e1a, type: 3}
       propertyPath: highFlyRange
@@ -2891,7 +2895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7831462565027355368, guid: 4190893411e184448b3c20f1e3aed5b1, type: 3}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7864672281760996374, guid: 4190893411e184448b3c20f1e3aed5b1, type: 3}
       propertyPath: m_Name

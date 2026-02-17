@@ -9,7 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     private readonly int AnimationStateHash = Animator.StringToHash("AnimState");
 
     // Prevents state changes while Player is in a locked animation
-    private bool isLocked => state == PlayerAnimationState.Attack;
+    private bool isLocked => state == PlayerAnimationState.Attack || state == PlayerAnimationState.StrongAttack || state == PlayerAnimationState.Die;
 
 
     public PlayerAnimationState CurrentState => state;
