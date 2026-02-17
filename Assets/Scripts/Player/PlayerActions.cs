@@ -29,11 +29,8 @@ public class PlayerActions : MonoBehaviour
     public bool isStrongAttack = false;
     public bool canAttack = true;
     public bool isAttacking = false;
-    // helper incase animation event gets skipped unexpectedly
-    [SerializeField] private float maxAttackDuration = 1.2f;
-    private Coroutine attackFailSafe;
 
-
+    private float attackWindup;
     public bool IsAlive { get; private set; } = true;
     private bool isBurned = false;
     public bool isPoisoned { get; private set; } = false;
@@ -96,11 +93,6 @@ public class PlayerActions : MonoBehaviour
             playerMovement.canJump = false;
             isAttacking = true;
 
-            if(attackFailSafe != null)
-                StopCoroutine(attackFailSafe);
-
-            attackFailSafe = StartCoroutine(AttackFailSafe());
-
             switch (weaponType.attackType)
             {
                 case AttackType.BareHand:
@@ -108,6 +100,7 @@ public class PlayerActions : MonoBehaviour
                     break;
                 case AttackType.Sword:
                     playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.StrongAttack : PlayerAnimationState.Attack);
+                    StartCoroutine(DealSwordDamage());
                     break ;
                 case AttackType.Ranged:
                     playerAnimation.SetAnimationState(isStrongAttack ? PlayerAnimationState.RangedStrong : PlayerAnimationState.RangedAttack);
@@ -120,69 +113,33 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackFailSafe()
+    public IEnumerator OnAttackEnded()
     {
-        yield return new WaitForSeconds(maxAttackDuration);
-        ForceEndAttack();
-    }
 
-    private void ForceEndAttack()
-    {
+        yield return null;
+
+        while (playerAnimation.GetAnimationTime() < 1f)
+            yield return null;
+
         isStrongAttack = false;
         isHoldingAttack = false;
         isAttacking = false;
         playerMovement.canJump = true;
         playerMovement.canMove = true;
+        Debug.Log(playerMovement.canMove + "now move");
 
-        if (attackFailSafe != null)
-        {
-            StopCoroutine(attackFailSafe);
-            attackFailSafe = null;
-        }
+        playerAnimation.SetAnimationState(PlayerAnimationState.Idle, true);
 
-        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown));
-        Debug.Log("attack cooldown started");
+        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown)); 
     }
 
-    /// <summary>
-    /// called via animation clip event at the end of the attack
-    /// </summary>
-    public void OnAttackDamage()
+    private IEnumerator DealSwordDamage()
     {
-        switch (weaponType.attackType)
-        {
-            case AttackType.BareHand:
-               // DealBareHandDamage();
-                break;
-            case AttackType.Sword:
-                DealSwordDamage();
-                playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
-                break;
-            case AttackType.Ranged:
-                // DealRangedDamage();
-                break;
-            case AttackType.Magic:
-                // DealMagivDamage();
-                break;
-        }
 
-    }
-    /// <summary>
-    /// called via animation clip event at the end of the attack
-    /// </summary>
-    public void OnAttackEnded()
-    {
-     /*   isStrongAttack = false;
-        playerMovement.canMove = true;
-        playerMovement.canJump = true;
-        isAttacking = false;
+        attackWindup = 0.8f;
 
-        StartCoroutine(AttackCooldown(playerStats.attackCooldown * weaponType.weaponCooldown)); */
-        ForceEndAttack() ;
-    }
+        yield return new WaitForSeconds(attackWindup);
 
-    private void DealSwordDamage()
-    {
         trueDamage = playerStats.damage * weaponType.power * (isStrongAttack ? 2f : 1f);
         trueRange = playerStats.attackRange * weaponType.weaponRange;
         if (isStrongAttack)
@@ -211,6 +168,7 @@ public class PlayerActions : MonoBehaviour
                 enemy.ApplyKnockback(transform.position, playerStats.knockBack * weaponType.weaponKnockBack);
             }
         }
+        StartCoroutine(OnAttackEnded());
     }
 
 
@@ -218,6 +176,7 @@ public class PlayerActions : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldownTime);
         canAttack = true;
+        Debug.Log(canAttack);
     }
 
     public void OnTakeDamage(float damage)
@@ -233,6 +192,7 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    #region Status Effects
     public void BurnedStatus(float duration)
     {
         // take damage in ticks over time for the duration in which burn lasts
@@ -329,6 +289,7 @@ public class PlayerActions : MonoBehaviour
     }
 
     public event System.Action<bool> OnPoisonedStatusChanged;
+
     /// <summary>
     /// forward status change to playerMovement
     /// </summary>
@@ -350,6 +311,9 @@ public class PlayerActions : MonoBehaviour
             playerMovement.ParalyzedStatus(duration);
     }
 
+
+    #endregion
+
     private void Die()
     {
         // play die animation 
@@ -369,6 +333,8 @@ public class PlayerActions : MonoBehaviour
     {
 
     }
+
+    #region Knockback
 
     public void ApplyKnockback(Vector3 source, float force)
     {
@@ -402,6 +368,7 @@ public class PlayerActions : MonoBehaviour
         transform.position = targetPosition;
     }
 
+    #endregion
 
     /// <summary>
     /// Chat gpt for debug 

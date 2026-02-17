@@ -53,7 +53,7 @@ Material:
     - _Cull: 0
     - _DstBlend: 1
     - _DstBlendAlpha: 1
-    - _Power: 3.02
+    - _Power: 3
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5

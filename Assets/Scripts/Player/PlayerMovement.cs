@@ -74,13 +74,24 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ReadInput();
+        MovePlayer();
+        CheckGrounded();
+
+        if (lockCamera)
+            UpdateFixedCamera();
+        else
+            UpdateCamera();
+
+        RotatePlayer();
+
+
     }
     /// <summary>
     /// Updates camera, check for ground and moves or rotates player at fixed intervals
     /// </summary>
     private void FixedUpdate()
     {
-        CheckGrounded();
+       /* CheckGrounded();
         MovePlayer();
 
         if (lockCamera)
@@ -88,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         else
              UpdateCamera();
 
-        RotatePlayer();
+        RotatePlayer();*/
     }
     /// <summary>
     /// Reads keyboard input for movement
@@ -243,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
          //   Vector3 moveDirection = input * moveSpeed * Time.fixedDeltaTime;
            // transform.position += moveDirection;
            Vector3 moveDirection = transform.right * input.x + transform.forward * input.z;
-            moveDirection *= moveSpeed * Time.fixedDeltaTime;
+            moveDirection *= moveSpeed * Time.deltaTime; // Time.fixedDeltaTime;
             transform.position += moveDirection;
             if (isGrounded && !isJumping)
             {
@@ -277,6 +288,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    #region Idle/Emotes
     private IEnumerator IdleAnimationRoutine()
     {
         // wait a few seconds before playing random idle animation
@@ -323,6 +335,8 @@ public class PlayerMovement : MonoBehaviour
 
         playerAnimation.SetAnimationState(emote);
     }
+
+    #endregion
 
     /// <summary>
     /// always checks if the player is grounded
@@ -380,7 +394,7 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
+    #region Camera Settings
     /// <summary>
     /// Update the camera position to follow the player from above
     /// </summary>
@@ -442,6 +456,10 @@ public class PlayerMovement : MonoBehaviour
         // Set camera rotation to look down in a fixed angle
         mainCamera.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
     }
+
+    #endregion
+
+    #region Status effects
 
     public void SlowStatus(float duration)
     {
@@ -553,6 +571,9 @@ public class PlayerMovement : MonoBehaviour
 
     public event System.Action<bool> OnParalyzedStatusChanged;
 
+    #endregion
+
+    #region  Deactivate / Activate Controls
     private void ActivateControls()
     {
         if(!playerActions.IsAlive)
@@ -578,5 +599,5 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.SetAnimationState(PlayerAnimationState.Idle);
 
     }
-
+#endregion
 }

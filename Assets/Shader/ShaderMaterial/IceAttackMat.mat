@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: IceAttackMat
-  m_Shader: {fileID: -6465566751694194690, guid: 463b8adb2b0884c4fa0d5c094b9f2d4d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b1a04a95c0631f549b53aed1f74f2a82, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:

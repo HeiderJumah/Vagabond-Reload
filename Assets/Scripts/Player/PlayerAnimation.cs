@@ -8,15 +8,26 @@ public class PlayerAnimation : MonoBehaviour
     // cache hash ids
     private readonly int AnimationStateHash = Animator.StringToHash("AnimState");
 
+    // Prevents state changes while Player is in a locked animation
+    private bool isLocked => state == PlayerAnimationState.Attack;
+
+
     public PlayerAnimationState CurrentState => state;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-    public void SetAnimationState(PlayerAnimationState newState)
+    public void SetAnimationState(PlayerAnimationState newState, bool forceChange = false)
     {
-        if (state == newState) return;
+        if (!forceChange && (state == newState || isLocked)) return;
         state = newState;
         animator.SetInteger(AnimationStateHash, (int)state);
     }
+
+    public float GetAnimationTime()
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        return state.normalizedTime;
+    }
+
 }

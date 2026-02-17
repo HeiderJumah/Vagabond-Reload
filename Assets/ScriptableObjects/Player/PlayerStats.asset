@@ -17,5 +17,6 @@ MonoBehaviour:
   damage: 1
   maxStamina: 3
   attackRange: 1
-  attackCooldown: 1
+  attackCooldown: 0.6
   knockBack: 1
+  knockbackResist: 1
