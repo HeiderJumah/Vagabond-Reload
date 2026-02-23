@@ -18,7 +18,6 @@ namespace Vagabond.Systems.Input {
                     return;
                 if(keyboard.escapeKey.wasPressedThisFrame)
                 {
-                    Cursor.lockState = Cursor.lockState != CursorLockMode.None ? CursorLockMode.None : CursorLockMode.Confined;
                     TogglePause();
                 }
             }
