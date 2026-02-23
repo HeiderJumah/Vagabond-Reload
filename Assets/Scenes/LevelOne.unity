@@ -517,6 +517,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118945385905600042, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0223
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118945385905600042, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1261
+      objectReference: {fileID: 0}
     - target: {fileID: 2151365369513665864, guid: 00f3a19eb03609d4d805a7d14038c54b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.703947
@@ -791,6 +799,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4291515393586103009, guid: b236e07019ff9a64bad334d3746b8ca7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5692729535387048707, guid: b236e07019ff9a64bad334d3746b8ca7, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1040,6 +1052,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9067586706473278856, guid: 7d159701382820249845bf9dd3948ab8, type: 3}
   m_PrefabInstance: {fileID: 122985314185756398}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1020218745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8100036314436193940, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+  m_PrefabInstance: {fileID: 8208473378108206155}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1020828202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1051,10 +1068,6 @@ PrefabInstance:
     - target: {fileID: 5193238501937226567, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
       propertyPath: m_Name
       value: GolemBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 5193238501937226567, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6639176057286342646, guid: 72cc7b4b69a3bd04ab5c38fb9ab2b27f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2840,9 +2853,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vagabond
       objectReference: {fileID: 0}
+    - target: {fileID: 5485587315185030944, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: shootPoint
+      value: 
+      objectReference: {fileID: 1020218745}
+    - target: {fileID: 5485587315185030944, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: weaponType
+      value: 
+      objectReference: {fileID: 11400000, guid: 9acb0392d83ca2744a9aa88f6bc68bfa, type: 2}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.545615
+      value: 9.948
       objectReference: {fileID: 0}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2850,7 +2871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.427685
+      value: -11.21
       objectReference: {fileID: 0}
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2879,6 +2900,10 @@ PrefabInstance:
     - target: {fileID: 6954766737519731344, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872879272948896814, guid: 4025fda460250db48a7106682dc39c2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

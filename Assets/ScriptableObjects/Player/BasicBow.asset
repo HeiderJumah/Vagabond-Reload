@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 502894fba84b4254cb449f825345f4fa, type: 3}
-  m_Name: BasicSword
+  m_Name: BasicBow
   m_EditorClassIdentifier: 
-  attackType: 1
+  attackType: 2
   power: 1.5
-  weaponRange: 1.5
+  weaponRange: 6
   staminaUse: 1
-  weaponCooldown: 0.5
+  weaponCooldown: 0.7
   weaponKnockBack: 1

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 502894fba84b4254cb449f825345f4fa, type: 3}
-  m_Name: BasicSword
+  m_Name: BareHand
   m_EditorClassIdentifier: 
-  attackType: 1
-  power: 1.5
-  weaponRange: 1.5
+  attackType: 0
+  power: 1
+  weaponRange: 1
   staminaUse: 1
   weaponCooldown: 0.5
-  weaponKnockBack: 1
+  weaponKnockBack: 0.5

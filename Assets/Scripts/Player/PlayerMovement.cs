@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         input = new Vector3(horizontal, 0f, vertical).normalized;
 
         // Handle jump input
-        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping && canJump)
+        if (keyboard.spaceKey.wasPressedThisFrame && isGrounded && !isJumping && canJump && !playerActions.isAttacking)
         {
             isJumping = true;
             StartCoroutine(JumpCoroutine());
@@ -163,8 +163,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Dodge()
     {
-        if (!canMove ||playerActions.isPoisoned || isLocked || !playerActions.IsAlive) 
-            return;
+        if (!canMove || playerActions.isPoisoned || isLocked || !playerActions.IsAlive)
+        return;
 
         // Dodge in the direction of movement
         if (isGrounded && !isJumping && canDodge)
@@ -236,7 +236,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(isDodging);
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
-        Debug.Log(canDodge);
     }
 
     /// <summary>
@@ -330,10 +329,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleEmotes(PlayerAnimationState emote)
     {
-        if(playerAnimation.CurrentState != PlayerAnimationState.Idle) 
-            return;
-
-        playerAnimation.SetAnimationState(emote);
+        if(playerAnimation.CurrentState == PlayerAnimationState.Idle || playerAnimation.CurrentState == PlayerAnimationState.EmoteOne ||
+           playerAnimation.CurrentState == PlayerAnimationState.EmoteTwo || playerAnimation.CurrentState == PlayerAnimationState.EmoteThree
+           || playerAnimation.CurrentState == PlayerAnimationState.EmoteFour)
+        {
+             playerAnimation.SetAnimationState(emote);
+        }
     }
 
     #endregion
@@ -420,6 +421,11 @@ public class PlayerMovement : MonoBehaviour
         // scroll camera distance smoothly 
         cameraDistance = Mathf.Lerp(cameraDistance, scrollCamera, Time.deltaTime * 4f);
 
+        if (Mouse.current.middleButton.wasPressedThisFrame)
+        {
+            ResetCamera();
+        }
+
         // Rotate camera based on mouse button drag
         if (Mouse.current.rightButton.isPressed)
         {
@@ -443,6 +449,14 @@ public class PlayerMovement : MonoBehaviour
         mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * cameraSmoothRotate);
 
        // mainCamera.transform.rotation = rotation;
+    }
+
+    private void ResetCamera()
+    {
+        // Reset camera values to default
+        cameraYaw = 0f;
+        cameraAngle = 60f;
+        scrollCamera = 3f;
     }
 
     private void UpdateFixedCamera()
