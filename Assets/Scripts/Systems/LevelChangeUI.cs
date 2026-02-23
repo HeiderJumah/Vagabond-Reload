@@ -31,7 +31,7 @@ public class LevelChangeUI : MonoBehaviour
 
         LevelManager.LevelConnection = sceneLoader.LevelManager;
         SceneManager.LoadScene(sceneLoader.SceneName);
-
+        MusicManager.Instance.PlayMusic();
     }
 
     public void OnNo()

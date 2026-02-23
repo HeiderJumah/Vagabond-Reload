@@ -51,6 +51,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float avoidDistance = 1.5f;
     [SerializeField] private float rayAngle = 45f;
 
+    [SerializeField] private BarrierTrigger barrierTrigger; // Reference to the BarrierTrigger script
+
     private void Awake()
     {
         enemyAnimation = GetComponent<EnemyAnimation>();
@@ -250,6 +252,12 @@ public class Enemy : MonoBehaviour
         {
             // change back to normal music when boss dies
             MusicManager.Instance.PlayMusic();
+
+            if(barrierTrigger != null)
+            {
+                barrierTrigger.OnBossDeafed();
+            }
+
         }
 
         StartCoroutine(DestroyObject());
