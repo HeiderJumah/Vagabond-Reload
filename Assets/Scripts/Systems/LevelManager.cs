@@ -4,5 +4,8 @@ using UnityEngine;
 public class LevelManager : ScriptableObject
 {
     // static to hold current level connetion
-    public static LevelManager LevelConnection { get; set; }    
+    public static LevelManager LevelConnection { get; set; }
+
+    [Header("Level Music")]
+    public AudioClip levelMusic;
 }

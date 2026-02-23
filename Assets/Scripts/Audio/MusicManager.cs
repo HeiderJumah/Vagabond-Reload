@@ -36,9 +36,23 @@ public class MusicManager : MonoBehaviour
 
     public void PlayMusic()
     {
+        AudioClip clipToPlay = null;
+
+        // Determine which music to play based on the current level
+        if (LevelManager.LevelConnection != null && LevelManager.LevelConnection.levelMusic != null)
+        {
+            clipToPlay = LevelManager.LevelConnection.levelMusic;
+        }
+        else if (musicClip != null)
+        {
+            // Fallback to default music if no level-specific music is set
+            clipToPlay = musicClip;
+        }
+
+
         if (musicSource != null && musicClip != null)
         {
-            musicSource.clip = musicClip;
+            musicSource.clip = clipToPlay;
             musicSource.loop = true;
             musicSource.Play();
         }

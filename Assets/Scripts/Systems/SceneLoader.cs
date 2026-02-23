@@ -18,6 +18,7 @@ namespace Vagabond.Systems.Scene
             {
                 FindFirstObjectByType<PlayerActions>().transform.position = spawnPoint.position;
             }
+
         }
 
         private void OnTriggerEnter(Collider other)

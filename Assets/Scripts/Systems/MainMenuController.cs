@@ -7,6 +7,7 @@ namespace Vagabond.Systems.UI
     public class MainMenuController : MonoBehaviour
     {
         [SerializeField] private string LevelToLoad;
+        [SerializeField] private LevelManager levelManager;
 
         public void OnStartGame()
         {
@@ -16,8 +17,10 @@ namespace Vagabond.Systems.UI
             Debug.Log("[TitleScreen] Start Game");
             GameManager.Instance.GameStateManager.ChangeState(GameState.InGame);
             SceneManager.LoadScene(LevelToLoad);
+            LevelManager.LevelConnection = levelManager;
             MusicManager.Instance.PlayMusic();
         }
+
 
         public void OnQuitGame()
         {

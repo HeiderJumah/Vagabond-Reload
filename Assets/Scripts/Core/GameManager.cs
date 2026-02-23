@@ -12,12 +12,12 @@ namespace Vagabond.Core
 
         [Header("Managers")]
         [SerializeField] private GameStateManager gameStateManager;
-        [SerializeField] private SceneLoader sceneLoader;
+        //[SerializeField] private SceneLoader sceneLoader;
         //[SerializeField] private UIManager uiManager;
         [SerializeField] private InputRouter inputRouter;
 
         public GameStateManager GameStateManager => gameStateManager;
-        public SceneLoader SceneLoader => sceneLoader;
+       // public SceneLoader SceneLoader => sceneLoader;
        // public UIManager UIManager => uiManager;
         public InputRouter InputRouter => inputRouter;
 
@@ -41,9 +41,9 @@ namespace Vagabond.Core
             if (gameStateManager == null)
                 gameStateManager = GetComponent<GameStateManager>();
 
-            if (sceneLoader == null)
+           /* if (sceneLoader == null)
                 sceneLoader = GetComponent<SceneLoader>();
-
+           */
            /* if (uiManager == null)
                 uiManager = GetComponent<UIManager>(); */
 

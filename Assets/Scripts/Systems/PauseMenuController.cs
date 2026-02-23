@@ -1,6 +1,7 @@
 using UnityEngine;
 using Vagabond.Core;
 using UnityEngine.SceneManagement;
+using Vagabond.Systems.Scene;
 
 namespace Vagabond.Systems.UI
 {
@@ -22,6 +23,7 @@ namespace Vagabond.Systems.UI
             Time.timeScale = 1f;
             GameManager.Instance.GameStateManager.ChangeState(GameState.MainMenu);
             SceneManager.LoadScene(mainMenuSceneName);
+            MusicManager.Instance.PlayMainMenuMusic();
         }
     }
 }
