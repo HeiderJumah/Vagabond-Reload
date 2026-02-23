@@ -12,6 +12,8 @@ public class BarrierTrigger : MonoBehaviour
         {
             barrier.gameObject.SetActive(true);
             boss.gameObject.SetActive(true);
+
+            MusicManager.Instance.PlayBossMusic();
         }
     }
 }

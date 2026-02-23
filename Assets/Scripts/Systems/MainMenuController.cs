@@ -1,21 +1,12 @@
 using UnityEngine;
 using Vagabond.Core;
+using UnityEngine.SceneManagement;
 
 namespace Vagabond.Systems.UI
 {
     public class MainMenuController : MonoBehaviour
     {
-        [Header("Cursor Settings")]
-        [SerializeField] private Texture2D customCursor;
-        [SerializeField] private Vector2 cursorHotspot = Vector2.zero; // center of the texture
-
-        private void Start()
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-
-            if (customCursor != null)
-                Cursor.SetCursor(customCursor, cursorHotspot, CursorMode.Auto);
-        }
+        [SerializeField] private string LevelToLoad;
 
         public void OnStartGame()
         {
@@ -24,6 +15,8 @@ namespace Vagabond.Systems.UI
 
             Debug.Log("[TitleScreen] Start Game");
             GameManager.Instance.GameStateManager.ChangeState(GameState.InGame);
+            SceneManager.LoadScene(LevelToLoad);
+            MusicManager.Instance.PlayMusic();
         }
 
         public void OnQuitGame()

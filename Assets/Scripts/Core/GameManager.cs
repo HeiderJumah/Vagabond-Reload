@@ -2,6 +2,7 @@ using UnityEngine;
 using Vagabond.Systems.Scene;
 using Vagabond.Systems.UI;
 using Vagabond.Systems.Input;
+using UnityEngine.SceneManagement;
 
 namespace Vagabond.Core
 {
@@ -12,12 +13,12 @@ namespace Vagabond.Core
         [Header("Managers")]
         [SerializeField] private GameStateManager gameStateManager;
         [SerializeField] private SceneLoader sceneLoader;
-        [SerializeField] private UIManager uiManager;
+        //[SerializeField] private UIManager uiManager;
         [SerializeField] private InputRouter inputRouter;
 
         public GameStateManager GameStateManager => gameStateManager;
         public SceneLoader SceneLoader => sceneLoader;
-        public UIManager UIManager => uiManager;
+       // public UIManager UIManager => uiManager;
         public InputRouter InputRouter => inputRouter;
 
         private void Awake()
@@ -43,8 +44,8 @@ namespace Vagabond.Core
             if (sceneLoader == null)
                 sceneLoader = GetComponent<SceneLoader>();
 
-            if (uiManager == null)
-                uiManager = GetComponent<UIManager>();
+           /* if (uiManager == null)
+                uiManager = GetComponent<UIManager>(); */
 
             if (inputRouter == null)
                 inputRouter = GetComponent<InputRouter>();
@@ -57,8 +58,18 @@ namespace Vagabond.Core
 
         private void Start()
         {
-            gameStateManager.ChangeState(GameState.Boot);
-            gameStateManager.ChangeState(GameState.MainMenu);
+            /* gameStateManager.ChangeState(GameState.Boot);
+             gameStateManager.ChangeState(GameState.MainMenu);*/
+            string activeScene = SceneManager.GetActiveScene().name;
+
+            if (activeScene == "MainMenu")
+            {
+                gameStateManager.ChangeState(GameState.MainMenu);
+            }
+            else
+            {
+                gameStateManager.ChangeState(GameState.InGame);
+            }
         }
     }
 }

@@ -246,6 +246,12 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy died");
         enemyAnimation.SetAnimationState(EnemyAnimationState.Death);
 
+        if(enemyType.enemyCategory == EnemyCategory.golemBoss)
+        {
+            // change back to normal music when boss dies
+            MusicManager.Instance.PlayMusic();
+        }
+
         StartCoroutine(DestroyObject());
     }
 
