@@ -50,7 +50,13 @@ public class PlayerActions : MonoBehaviour
     public float GetMaxHealth() => maxHealth;
     public float GetCurrentHealth() => currentHealth;
 
+    public float GetMaxStamina() => maxStamina;
+
+    public float GetCurrentStamina() => currentStamina;
+
     public event Action<float> OnHealthChanged;
+
+    public event Action<float> OnStaminaChanged;
 
     private void Awake()
     {
@@ -143,7 +149,16 @@ public class PlayerActions : MonoBehaviour
             if(holdAttackTimer >= holdAttackTime)
             {
                 isHoldingAttack = false;
-                TriggerAttack(true);
+
+                if (currentStamina >= 1) // strong attack requires at least 1 stamina
+                {
+                    ConsumeStamina(1);
+                    TriggerAttack(true);
+                }
+                else
+                {
+                    TriggerAttack(false); // not enough stamina for strong attack, perform normal attack instead
+                }
             }
 
         }
@@ -527,6 +542,31 @@ public class PlayerActions : MonoBehaviour
 
         }
     }
+
+    private void ConsumeStamina(int amount)
+    {
+        // return if not enough stamina to consume
+        if (currentStamina < amount)
+            return;
+
+        currentStamina -= amount;
+        OnStaminaChanged?.Invoke(currentStamina);
+
+        StartCoroutine(StaminaRegenDelay(8f));
+    }
+
+    private IEnumerator StaminaRegenDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        // regenerate stamina over time after delay
+        while (currentStamina < maxStamina)
+        {
+            currentStamina += 1; // regen 1 stamina per tick
+            OnStaminaChanged?.Invoke(currentStamina);
+            yield return new WaitForSeconds(delay); 
+        }
+    }
+
 
     #region Knockback
 

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,14 @@ public class PlayerUIManager : MonoBehaviour
     private PlayerMovement playerMovement;
     [SerializeField] private HeartUi heartPrefab;
     [SerializeField] private Transform heartContainer;
+    [SerializeField] private StaminaUI staminaPrefab;
+    [SerializeField] private Transform staminaContainer;
 
     private List<HeartUi> hearts = new List<HeartUi>();
     private int maxHearts => Mathf.CeilToInt(playerActions.GetMaxHealth());
+
+    private List<StaminaUI> staminas = new List<StaminaUI>();
+    private int maxStamina => Mathf.CeilToInt(playerActions.GetMaxStamina());
 
     [Header("Status Effects")]
     [SerializeField] private GameObject burnObject;
@@ -27,9 +33,10 @@ public class PlayerUIManager : MonoBehaviour
         playerMovement = FindFirstObjectByType<PlayerMovement>();
         CreateHearts();
         UpdateHearts(playerActions.GetCurrentHealth());
-
-        // subscribe to players health change 
+        CreateStamina();
+        // subscribe to players health change and stamina change events
         playerActions.OnHealthChanged += UpdateHearts;
+        playerActions.OnStaminaChanged += UpdateStaminaUI;
         // subscribe to player status events 
         playerActions.OnBurnStatusChanged += SetBurnStatus;
         playerMovement.OnSlowedStatusChanged += SetSlowedStatus;
@@ -60,6 +67,25 @@ public class PlayerUIManager : MonoBehaviour
         if (damageHeart < hearts.Count)
         {
             hearts[damageHeart].DamageFlash();
+        }
+    }
+
+    private void CreateStamina()
+    {
+        for (int i = 0; i < maxStamina; i++)
+        {
+            StaminaUI stamina = Instantiate(staminaPrefab, staminaContainer);
+            stamina.StaminaInit();
+            staminas.Add(stamina);
+        }
+    }
+
+    private void UpdateStaminaUI(float stamina)
+    {
+        for (int i = 0; i < staminas.Count; i++)
+        {
+            bool isFilled = i < stamina;
+            staminas[i].SetStamina(isFilled);
         }
     }
 
@@ -97,6 +123,7 @@ public class PlayerUIManager : MonoBehaviour
         if (playerActions != null)
         {
             playerActions.OnHealthChanged -= UpdateHearts;
+            playerActions.OnStaminaChanged -= UpdateStaminaUI;
             playerActions.OnBurnStatusChanged -= SetBurnStatus;
             playerMovement.OnSlowedStatusChanged -= SetSlowedStatus;
             playerMovement.OnConfusedStatusChanged -= SetConfusedStatus;
