@@ -9,9 +9,21 @@ namespace Vagabond.Systems.Input {
     public class InputRouter : MonoBehaviour
     {
 
-        [SerializeField] private PauseMenuController pauseMenuController;
+        private PauseMenuController pauseMenuController;
 
-        private void OnEnable()
+        private PauseMenuController PauseMenuController
+        {
+            get
+            {
+                if (pauseMenuController == null)
+                {
+                    pauseMenuController = FindFirstObjectByType<PauseMenuController>();
+                }
+                return pauseMenuController;
+            }
+        }
+
+      /*  private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -25,7 +37,7 @@ namespace Vagabond.Systems.Input {
         {
             pauseMenuController = FindFirstObjectByType<PauseMenuController>();
 
-        }
+        }*/
 
         private void Update()
         {
@@ -40,7 +52,7 @@ namespace Vagabond.Systems.Input {
                     if (LevelChangeUI.Instance != null && LevelChangeUI.Instance.IsPanelActive)
                         return; // Don't allow pausing if level change panel is active
 
-                    if (pauseMenuController.IsSettingsOpen)
+                    if (PauseMenuController != null && pauseMenuController.IsSettingsOpen)
                         pauseMenuController.OnCloseSettings();
                     else
                         TogglePause();

@@ -2,6 +2,7 @@ using UnityEngine;
 using Vagabond.Core;
 using UnityEngine.SceneManagement;
 using Vagabond.Systems.Scene;
+using UnityEngine.UI;
 
 namespace Vagabond.Systems.UI
 {
@@ -10,6 +11,7 @@ namespace Vagabond.Systems.UI
 
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private Slider audioSlider;
 
         public bool IsSettingsOpen => settingsPanel.activeSelf;
 
@@ -46,6 +48,22 @@ namespace Vagabond.Systems.UI
             PlayerMovement playerMovement = FindFirstObjectByType<PlayerMovement>();
             bool value = index == 1;
             playerMovement.SetCameraLock(value);
+        }
+
+        private void Start()
+        {
+            if(audioSlider != null)
+            {
+                // Set initial slider value to current music volume
+                audioSlider.value = MusicManager.Instance.MusicVolume;
+                // Add listener for slider value changes
+                audioSlider.onValueChanged.AddListener(OnMusicSliderChanged);
+            }
+        }
+
+        private void OnMusicSliderChanged(float value)
+        {
+            MusicManager.Instance.SetMusicVolume(value);
         }
 
     }

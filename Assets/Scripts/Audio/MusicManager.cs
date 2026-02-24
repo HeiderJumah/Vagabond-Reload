@@ -10,18 +10,34 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip pauseClip;
     [SerializeField] private AudioClip MainMenuClip;
 
+    // persitant volume settings, can be set from settings menu
+    public float MusicVolume { get; private set; } = 1f;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            ApplyVolume();
             PlayMainMenuMusic();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        MusicVolume = Mathf.Clamp01(volume);
+        musicSource.volume = MusicVolume;
+    }
+
+    private void ApplyVolume()
+    {
+        if (musicSource != null)
+            musicSource.volume = MusicVolume;
     }
 
     public void PlayMainMenuMusic()
