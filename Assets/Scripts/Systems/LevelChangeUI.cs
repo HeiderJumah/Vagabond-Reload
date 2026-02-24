@@ -8,6 +8,8 @@ public class LevelChangeUI : MonoBehaviour
     [SerializeField] private GameObject levelChangePanel;
     private SceneLoader sceneLoader;
 
+    public bool IsPanelActive => levelChangePanel.activeSelf;
+
     private void Awake()
     {
         if (Instance == null)

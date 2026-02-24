@@ -8,6 +8,9 @@ namespace Vagabond.Systems.UI
     public class PauseMenuController : MonoBehaviour
     {
         [SerializeField] private string mainMenuSceneName;
+        [SerializeField] private GameObject settingsPanel;
+
+        public bool IsSettingsOpen => settingsPanel.activeSelf;
 
         public void OnResume()
         {
@@ -25,6 +28,17 @@ namespace Vagabond.Systems.UI
             SceneManager.LoadScene(mainMenuSceneName);
             MusicManager.Instance.PlayMainMenuMusic();
         }
+
+        public void OnSettings()
+        {
+            settingsPanel.SetActive(true);
+        }
+
+        public void OnCloseSettings()
+        {
+            settingsPanel.SetActive(false);
+        }
+
     }
 }
 

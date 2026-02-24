@@ -3,10 +3,29 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Vagabond.Core;
 using Vagabond.Systems.UI;
+using UnityEngine.SceneManagement;
 
 namespace Vagabond.Systems.Input {
     public class InputRouter : MonoBehaviour
     {
+
+        [SerializeField] private PauseMenuController pauseMenuController;
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+        {
+            pauseMenuController = FindFirstObjectByType<PauseMenuController>();
+
+        }
 
         private void Update()
         {
@@ -18,7 +37,13 @@ namespace Vagabond.Systems.Input {
                     return;
                 if(keyboard.escapeKey.wasPressedThisFrame)
                 {
-                    TogglePause();
+                    if (LevelChangeUI.Instance != null && LevelChangeUI.Instance.IsPanelActive)
+                        return; // Don't allow pausing if level change panel is active
+
+                    if (pauseMenuController.IsSettingsOpen)
+                        pauseMenuController.OnCloseSettings();
+                    else
+                        TogglePause();
                 }
             }
         }

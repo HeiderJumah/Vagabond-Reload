@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxPitch = 65f;
     [SerializeField] private float cameraSmoothRotate = 10f; // smoothness factor for camera rotation
     [SerializeField] private float cameraZoom = 1f; // camera zoom sensitivity / zoom speed
-    public bool lockCamera = false;
+    public bool lockCamera { get; private set; } = false;
     private float scrollCamera;
     private float cameraYaw;
 
@@ -101,6 +101,18 @@ public class PlayerMovement : MonoBehaviour
 
         RotatePlayer();*/
     }
+
+    public void SetCameraLock(bool value)
+    {
+        lockCamera = value;
+    }
+
+    public void DropwDown(int index)
+    {
+        bool value = index == 1;
+        SetCameraLock(value);
+    }
+
     /// <summary>
     /// Reads keyboard input for movement
     /// </summary>
