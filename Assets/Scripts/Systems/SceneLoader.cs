@@ -16,7 +16,17 @@ namespace Vagabond.Systems.Scene
         {
             if (levelManager == LevelManager.LevelConnection)
             {
-                FindFirstObjectByType<PlayerActions>().transform.position = spawnPoint.position;
+               // FindFirstObjectByType<PlayerActions>().transform.position = spawnPoint.position;
+               var player = PlayerActions.Instance;
+                if (player != null)
+                {
+                    player.transform.position = spawnPoint.position;
+                    var playerMovement = player.GetComponent<PlayerMovement>();
+                    if (playerMovement != null)
+                    {
+                        playerMovement.SetCamera(Camera.main);
+                    }
+                }
             }
 
         }

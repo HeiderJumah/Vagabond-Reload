@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    public static PlayerUIManager Instance;
 
     private PlayerActions playerActions;
     private PlayerMovement playerMovement;
@@ -26,6 +27,19 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private GameObject confusedObject;
     [SerializeField] private GameObject paralizedObject;
     [SerializeField] private GameObject poisonedObject;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

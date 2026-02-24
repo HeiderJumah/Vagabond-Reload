@@ -66,4 +66,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d8d4e0aba6a0b4baff7e7267daab03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrier: {fileID: 4335803477169024214, guid: 1a60358b58246264c85030998a66673d, type: 3}
+  barrier: {fileID: 0}
+  boss: {fileID: 0}

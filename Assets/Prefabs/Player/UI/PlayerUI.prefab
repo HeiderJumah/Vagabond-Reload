@@ -402,12 +402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -444,10 +444,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartPrefab: {fileID: 2267758683896917544, guid: 86653ff6c0d6a7a4da253bc17f921bde, type: 3}
   heartContainer: {fileID: 1404203462988690693}
+  staminaPrefab: {fileID: 7713386544615141450, guid: f4ea52832bf720546bb40d7d0aa5e78b, type: 3}
+  staminaContainer: {fileID: 4628144191184408383}
   burnObject: {fileID: 6442323834996095827}
   slowObject: {fileID: 7688501342987426725}
   confusedObject: {fileID: 7256974171227956555}
   paralizedObject: {fileID: 4280630446044167865}
+  poisonedObject: {fileID: 9067586706473278856}
 --- !u!114 &630155223924910636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +469,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: -860
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -829,6 +832,14 @@ PrefabInstance:
     - target: {fileID: 2909833716401868468, guid: 2d3b734ed3373e84ba0bba8c6c93ba76, type: 3}
       propertyPath: m_Padding.m_Left
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2909833716401868468, guid: 2d3b734ed3373e84ba0bba8c6c93ba76, type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2909833716401868468, guid: 2d3b734ed3373e84ba0bba8c6c93ba76, type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063154285785757542, guid: 2d3b734ed3373e84ba0bba8c6c93ba76, type: 3}
       propertyPath: m_Name

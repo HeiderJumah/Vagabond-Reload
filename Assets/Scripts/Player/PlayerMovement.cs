@@ -87,6 +87,14 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+
+    public void SetCamera(Camera camera)
+    {
+        if(camera != null)
+        {
+            mainCamera = camera;
+        }
+    }
     /// <summary>
     /// Updates camera, check for ground and moves or rotates player at fixed intervals
     /// </summary>

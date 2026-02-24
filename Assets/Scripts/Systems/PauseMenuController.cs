@@ -27,9 +27,10 @@ namespace Vagabond.Systems.UI
         {
             Debug.Log("[PauseMenu] Back to Main Menu");
             Time.timeScale = 1f;
-            GameManager.Instance.GameStateManager.ChangeState(GameState.MainMenu);
+            DestoryAllPersistentObjects();
+            //GameManager.Instance.GameStateManager.ChangeState(GameState.MainMenu);
             SceneManager.LoadScene(mainMenuSceneName);
-            MusicManager.Instance.PlayMainMenuMusic();
+            //MusicManager.Instance.PlayMainMenuMusic(); 
         }
 
         public void OnSettings()
@@ -64,6 +65,19 @@ namespace Vagabond.Systems.UI
         private void OnMusicSliderChanged(float value)
         {
             MusicManager.Instance.SetMusicVolume(value);
+        }
+
+        private void DestoryAllPersistentObjects()
+        {
+            var allObjects = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+            foreach(var obj in allObjects)
+            {
+                
+                if (obj.scene.name == "DontDestroyOnLoad")
+                {
+                    Destroy(obj);
+                }
+            }
         }
 
     }

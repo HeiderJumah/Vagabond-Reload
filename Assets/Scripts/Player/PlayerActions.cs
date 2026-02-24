@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
+    public static PlayerActions Instance;
+
     [Header("References")]
     private PlayerAnimation playerAnimation;
     private PlayerMovement playerMovement;
@@ -60,6 +62,17 @@ public class PlayerActions : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         maxHealth = playerStats.maxHealth;
         currentHealth = maxHealth;
         maxStamina = playerStats.maxStamina;
@@ -673,8 +686,4 @@ public class PlayerActions : MonoBehaviour
                 break;
         }
     }
-
-
-
-
 }
