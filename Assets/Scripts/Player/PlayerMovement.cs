@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
+
     [Header("Movement Information")]
     private float moveSpeed;
     [SerializeField] private float jumpForce = 7f;
@@ -105,12 +106,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetCameraLock(bool value)
     {
         lockCamera = value;
-    }
-
-    public void DropwDown(int index)
-    {
-        bool value = index == 1;
-        SetCameraLock(value);
     }
 
     /// <summary>

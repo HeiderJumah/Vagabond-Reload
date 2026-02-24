@@ -7,6 +7,7 @@ namespace Vagabond.Systems.UI
 {
     public class PauseMenuController : MonoBehaviour
     {
+
         [SerializeField] private string mainMenuSceneName;
         [SerializeField] private GameObject settingsPanel;
 
@@ -37,6 +38,14 @@ namespace Vagabond.Systems.UI
         public void OnCloseSettings()
         {
             settingsPanel.SetActive(false);
+        }
+
+
+        public void DropwDown(int index)
+        {
+            PlayerMovement playerMovement = FindFirstObjectByType<PlayerMovement>();
+            bool value = index == 1;
+            playerMovement.SetCameraLock(value);
         }
 
     }
