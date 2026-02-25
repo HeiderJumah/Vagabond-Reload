@@ -32,7 +32,8 @@ public enum EnemyCategory
     skeleton,
     bat,
     ghost,
-    golemBoss
+    golemBoss,
+    TestDummy
 }
 
 public enum Variant

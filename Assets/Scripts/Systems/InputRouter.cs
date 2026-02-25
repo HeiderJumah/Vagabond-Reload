@@ -23,22 +23,6 @@ namespace Vagabond.Systems.Input {
             }
         }
 
-      /*  private void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
-        {
-            pauseMenuController = FindFirstObjectByType<PauseMenuController>();
-
-        }*/
-
         private void Update()
         {
             if (GameManager.Instance.GameStateManager.CurrentState == GameState.InGame 
@@ -71,7 +55,7 @@ namespace Vagabond.Systems.Input {
             {
                 Time.timeScale = 1f;
                 gsm.ChangeState(GameState.InGame);
-                MusicManager.Instance.PlayMusic();
+                MusicManager.Instance.PlayMusicForState();
 
             }
         }

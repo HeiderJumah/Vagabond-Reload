@@ -7,7 +7,8 @@ public class BarrierTrigger : MonoBehaviour
     [SerializeField] private GameObject boss;
 
     private bool hasTriggered = false;
-    public bool bossActive = false;
+    private bool bossActive = false;
+    public bool IsBossActive => bossActive;
 
     private void Start()
     {
@@ -39,8 +40,6 @@ public class BarrierTrigger : MonoBehaviour
         {
             hasTriggered = true;
             bossActive = true;
-            LevelState.SetBossActive(SceneManager.GetActiveScene().name, true);
-
             barrier.gameObject.SetActive(true);
             boss.gameObject.SetActive(true);
 
@@ -55,7 +54,9 @@ public class BarrierTrigger : MonoBehaviour
         {
             barrier.gameObject.SetActive(false);
             bossActive = false;
-            LevelState.SetBossActive(SceneManager.GetActiveScene().name, false);
+            EndScreen endScreen = FindFirstObjectByType<EndScreen>();
+            if (endScreen != null)
+                endScreen.ActivatePanel(true);
         }
             
     }

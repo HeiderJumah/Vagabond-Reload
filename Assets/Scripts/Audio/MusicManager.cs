@@ -94,4 +94,14 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public void PlayMusicForState()
+    {
+        BarrierTrigger barrierTrigger = FindFirstObjectByType<BarrierTrigger>();
+
+        if(barrierTrigger != null && barrierTrigger.IsBossActive)
+            PlayBossMusic();
+        else
+            PlayMusic();
+    }
+
 }

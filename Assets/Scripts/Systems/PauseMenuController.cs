@@ -20,12 +20,7 @@ namespace Vagabond.Systems.UI
             Debug.Log("[PauseMenu] Resume");
             Time.timeScale = 1f;
             GameManager.Instance.GameStateManager.ChangeState(GameState.InGame);
-
-            Debug.Log("BossActive? " + LevelState.IsBossActive(SceneManager.GetActiveScene().name));
-            if (LevelState.IsBossActive(SceneManager.GetActiveScene().name))
-                MusicManager.Instance.PlayBossMusic();
-            else
-                MusicManager.Instance.PlayMusic();
+            MusicManager.Instance.PlayMusicForState();
         }
 
         public void OnBackToMainMenu()
@@ -33,6 +28,8 @@ namespace Vagabond.Systems.UI
             Debug.Log("[PauseMenu] Back to Main Menu");
             Time.timeScale = 1f;
             DestoryAllPersistentObjects();
+            // let bosses spawn again when going back to main menu
+            LevelState.ResetLevelState();
             //GameManager.Instance.GameStateManager.ChangeState(GameState.MainMenu);
             SceneManager.LoadScene(mainMenuSceneName);
             //MusicManager.Instance.PlayMainMenuMusic(); 

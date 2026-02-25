@@ -220,6 +220,13 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if(enemyType.enemyCategory == EnemyCategory.TestDummy)
+        {
+            // test dummy does not die, it just stands there and takes damage
+            Heal(maxHealth); // restore health to full when "killed"
+            return;
+        }
+
         isDead = true;
         canAttack = false;
         canMove = false; 
@@ -252,8 +259,7 @@ public class Enemy : MonoBehaviour
         {
             // change back to normal music when boss dies
             MusicManager.Instance.PlayMusic();
-
-            if(barrierTrigger != null)
+            if (barrierTrigger != null)
             {
                 barrierTrigger.OnBossDeafed();
             }

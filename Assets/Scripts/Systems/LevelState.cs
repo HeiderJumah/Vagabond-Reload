@@ -6,8 +6,6 @@ public static class LevelState
     // Track if the boss has been defeated per level
     private static Dictionary<string, bool> bossDefeated = new Dictionary<string, bool>();
 
-    private static Dictionary<string, bool> bossActive = new Dictionary<string, bool>();
-
     public static bool IsBossDefeated(string levelName)
     {
         return bossDefeated.ContainsKey(levelName) && bossDefeated[levelName];
@@ -18,14 +16,9 @@ public static class LevelState
         bossDefeated[levelName] = true;
     }
 
-    public static bool IsBossActive(string levelName)
+    public static void ResetLevelState()
     {
-        return bossActive.ContainsKey(levelName) && bossActive[levelName];
+        bossDefeated.Clear();
     }
 
-    public static void SetBossActive(string levelName, bool active)
-    {
-        bossActive[levelName] = active;
-        Debug.Log("LevelState SetBossActive: " + levelName + " = " + active);
-    }
 }

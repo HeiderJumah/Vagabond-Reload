@@ -531,7 +531,8 @@ public class PlayerActions : MonoBehaviour
         playerMovement.canMove = false;
 
         // GameOver screen
-        endScreen.ActivateGameOverPanel();
+        //endScreen.ActivateGameOverPanel();
+        endScreen.ActivatePanel(false);
 
         MusicManager.Instance.PlayMusic();
 
@@ -543,7 +544,7 @@ public class PlayerActions : MonoBehaviour
         if (keyboard == null)
             return;
 
-        if (endScreen.IsGameOverPanelActive)
+        if (endScreen.IsGameOverPanelActive || endScreen.IsVictoryPanelActive)
             return;
 
         if (keyboard.pKey.wasPressedThisFrame)

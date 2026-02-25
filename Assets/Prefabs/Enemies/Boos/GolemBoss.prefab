@@ -1456,10 +1456,11 @@ MonoBehaviour:
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
+  barrierTrigger: {fileID: 0}
   projectileObject: {fileID: 6021366787195010859, guid: 0c273d18e3d5c584da1f212de73ea601, type: 3}
   LineThrowObject: {fileID: 2650123688820953760, guid: 2471c5d33298a064a89c267518a286b3, type: 3}
   shootPoint: {fileID: 4777097148726137814}
-  rangedOneAdjustTime: 4.8
+  rangedOneAdjustTime: 1.75
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
