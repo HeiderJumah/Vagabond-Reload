@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1240376857232372500
+--- !u!1 &7967681501044674899
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5287326519332517380}
-  - component: {fileID: 1180632927832689071}
-  - component: {fileID: 5397732462286890844}
-  - component: {fileID: 8416879764821551370}
-  - component: {fileID: 4427758012151103494}
-  m_Layer: 0
-  m_Name: BowDrop
+  - component: {fileID: 8242220508185775993}
+  - component: {fileID: 8615941041607073170}
+  - component: {fileID: 381789512125203934}
+  - component: {fileID: 2386101217608803734}
+  - component: {fileID: 4000696213246179481}
+  - component: {fileID: 3210934699838441354}
+  m_Layer: 18
+  m_Name: SwordTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5287326519332517380
+--- !u!4 &8242220508185775993
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240376857232372500}
+  m_GameObject: {fileID: 7967681501044674899}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -35,21 +36,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &1180632927832689071
+--- !u!33 &8615941041607073170
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240376857232372500}
-  m_Mesh: {fileID: -7983878246839791379, guid: 3855b63c5a0b1a041a1acca8eb229d9b, type: 3}
---- !u!23 &5397732462286890844
+  m_GameObject: {fileID: 7967681501044674899}
+  m_Mesh: {fileID: -2490357807671972370, guid: d00dec123be83b445adbe6c8f3f02f41, type: 3}
+--- !u!23 &381789512125203934
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240376857232372500}
+  m_GameObject: {fileID: 7967681501044674899}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -88,13 +89,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &8416879764821551370
+--- !u!54 &2386101217608803734
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240376857232372500}
+  m_GameObject: {fileID: 7967681501044674899}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -113,15 +114,15 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &4427758012151103494
+--- !u!65 &4000696213246179481
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240376857232372500}
+  m_GameObject: {fileID: 7967681501044674899}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -134,5 +135,18 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.31090227, y: 1.0085003, z: 0.0367534}
-  m_Center: {x: 0.13567783, y: 0, z: -0.0000071385875}
+  m_Size: {x: 0.32953432, y: 1.1839278, z: 0.21841983}
+  m_Center: {x: 0.017808512, y: 0.45851696, z: -0.068466336}
+--- !u!114 &3210934699838441354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967681501044674899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575c302e8e7d3674d946e30e5f9dfbd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: e92cc1d0f20364b4193660c006f6770a, type: 2}

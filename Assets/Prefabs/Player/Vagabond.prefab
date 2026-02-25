@@ -518,6 +518,9 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 262144
   swordObject: {fileID: 8391868333690835959}
   bowObject: {fileID: 8872879272948896814}
   magicObject: {fileID: 8663371294031709814}

@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelTwo.unity
     guid: 9db2562e5536565408cc06ee315b9ca7
   - enabled: 1
-    path: Assets/Scenes/LevelThree.unity
+    path: Assets/Scenes/TestDummy.unity
     guid: 0a81d8ca05deb83428ed5744d1aa5eec
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

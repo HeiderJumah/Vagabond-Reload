@@ -17,6 +17,7 @@ public class PlayerActions : MonoBehaviour
     public WeaponType Weapon => weaponType;
     [SerializeField] private LayerMask enemyMask;
     private EndScreen endScreen;
+    [SerializeField] private LayerMask interactableMask;
     // private PlayerUIManager playerUIManager;
 
     [Header("Stats")]
@@ -93,6 +94,7 @@ public class PlayerActions : MonoBehaviour
     {
         Attack();
         HealPlayer();
+        Interact();
     }
 
     private void UpdateWeaponVisual()
@@ -589,6 +591,35 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    private void Interact()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+            return;
+        if (Mouse.current == null)
+            return;
+        var mousePosition = Mouse.current.position.ReadValue();
+        var ray = Camera.main.ScreenPointToRay(mousePosition);
+        if (keyboard.fKey.wasPressedThisFrame)
+        {
+            // raycast in based on mouse position to interact with objects in the world, such as picking up weapons or opening doors
+            if (Physics.Raycast(ray, out RaycastHit hit, interactableMask))
+            {
+                WeaponTest interactable = hit.collider.GetComponent<WeaponTest>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
+
+        }
+    }
+
+    public void EquipWeapon(WeaponType newWeapon)
+    {
+        weaponType = newWeapon;
+        UpdateWeaponVisual();
+    }
 
     #region Knockback
 
