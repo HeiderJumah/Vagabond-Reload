@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5e6169811adda7b4c8bdd200d98a0c41
+guid: d63e21134fcc1c84da7c4fa27aa489f9
 AssetOrigin:
   serializedVersion: 1
   productId: 109065
   packageName: Altar Ruins Free
   packageVersion: 2.0
-  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Tree/Tree_AO.png
+  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Tree/Tree_Specular.png
   uploadId: 707405
 TextureImporter:
   internalIDToNameTable: []

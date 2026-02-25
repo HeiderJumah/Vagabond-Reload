@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5e6169811adda7b4c8bdd200d98a0c41
+guid: 609e758083481b447897db15545a1192
 AssetOrigin:
   serializedVersion: 1
   productId: 109065
   packageName: Altar Ruins Free
   packageVersion: 2.0
-  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Tree/Tree_AO.png
+  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Old/Altar/Altar_specular.png
   uploadId: 707405
 TextureImporter:
   internalIDToNameTable: []
@@ -70,9 +70,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -89,7 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1

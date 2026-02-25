@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5e6169811adda7b4c8bdd200d98a0c41
+guid: 5a410c4e7f81aec4cbc6df4a6bf83dc6
 AssetOrigin:
   serializedVersion: 1
   productId: 109065
   packageName: Altar Ruins Free
   packageVersion: 2.0
-  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Tree/Tree_AO.png
+  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Ground/Ground_Gloss.png
   uploadId: 707405
 TextureImporter:
   internalIDToNameTable: []

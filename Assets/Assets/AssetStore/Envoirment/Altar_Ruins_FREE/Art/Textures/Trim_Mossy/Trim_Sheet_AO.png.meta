@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 5e6169811adda7b4c8bdd200d98a0c41
+guid: bcfa25a806dc3ce40bec44dbad91e3e7
 AssetOrigin:
   serializedVersion: 1
   productId: 109065
   packageName: Altar Ruins Free
   packageVersion: 2.0
-  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Tree/Tree_AO.png
+  assetPath: Assets/Altar_Ruins_FREE/Art/Textures/Trim_Mossy/Trim_Sheet_AO.png
   uploadId: 707405
 TextureImporter:
   internalIDToNameTable: []
@@ -76,7 +76,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
