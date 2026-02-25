@@ -16,7 +16,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private WeaponType weaponType;
     public WeaponType Weapon => weaponType;
     [SerializeField] private LayerMask enemyMask;
-   // private PlayerUIManager playerUIManager;
+    private EndScreen endScreen;
+    // private PlayerUIManager playerUIManager;
 
     [Header("Stats")]
     private float maxHealth;
@@ -83,6 +84,7 @@ public class PlayerActions : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        endScreen = GetComponent<EndScreen>();
         previousWeaponType = weaponType;
         UpdateWeaponVisual();
     }
@@ -529,6 +531,9 @@ public class PlayerActions : MonoBehaviour
         playerMovement.canMove = false;
 
         // GameOver screen
+        endScreen.ActivateGameOverPanel();
+
+        MusicManager.Instance.PlayMusic();
 
     }
 
@@ -536,6 +541,9 @@ public class PlayerActions : MonoBehaviour
     {
         var keyboard = Keyboard.current;
         if (keyboard == null)
+            return;
+
+        if (endScreen.IsGameOverPanelActive)
             return;
 
         if (keyboard.pKey.wasPressedThisFrame)

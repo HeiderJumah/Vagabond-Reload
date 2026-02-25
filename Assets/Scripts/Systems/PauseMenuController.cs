@@ -20,7 +20,12 @@ namespace Vagabond.Systems.UI
             Debug.Log("[PauseMenu] Resume");
             Time.timeScale = 1f;
             GameManager.Instance.GameStateManager.ChangeState(GameState.InGame);
-            MusicManager.Instance.PlayMusic();
+
+            Debug.Log("BossActive? " + LevelState.IsBossActive(SceneManager.GetActiveScene().name));
+            if (LevelState.IsBossActive(SceneManager.GetActiveScene().name))
+                MusicManager.Instance.PlayBossMusic();
+            else
+                MusicManager.Instance.PlayMusic();
         }
 
         public void OnBackToMainMenu()
