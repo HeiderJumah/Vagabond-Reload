@@ -355,13 +355,14 @@ MonoBehaviour:
   healthCanvas: {fileID: 5149094645419451009}
   healthbar: {fileID: 1732001952631708702}
   hitColor: {r: 1, g: 1, b: 1, a: 1}
-  hitIndicatorDuration: 1
+  hitIndicatorDuration: 0.1
   enemyType: {fileID: 11400000, guid: 1bfe2a685b30e8c4c8376cd58a1569b9, type: 2}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 4096
   avoidDistance: 2
   rayAngle: 45
+  barrierTrigger: {fileID: 0}
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
