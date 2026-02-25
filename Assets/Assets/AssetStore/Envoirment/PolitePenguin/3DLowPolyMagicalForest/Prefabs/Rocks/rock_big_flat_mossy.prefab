@@ -49,12 +49,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: a320da96ebf368c459669403ef33ae26, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b98e54aa0584e3346a9401d9bc46736b, type: 2}
     - target: {fileID: 919132149155446097, guid: a320da96ebf368c459669403ef33ae26, type: 3}
       propertyPath: m_Name
       value: rock_big_flat_mossy
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a320da96ebf368c459669403ef33ae26, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62,15 +66,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a320da96ebf368c459669403ef33ae26, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4608268996285644666}
+      addedObject: {fileID: -8292610155716870494}
   m_SourcePrefab: {fileID: 100100000, guid: a320da96ebf368c459669403ef33ae26, type: 3}
 --- !u!1 &1913724359144786838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a320da96ebf368c459669403ef33ae26, type: 3}
   m_PrefabInstance: {fileID: 1607648709088868039}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &4608268996285644666
-MeshCollider:
+--- !u!65 &-8292610155716870494
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -87,7 +91,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1029856646846176769, guid: a320da96ebf368c459669403ef33ae26, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.5980393, z: 1.8}
+  m_Center: {x: -0.06269652, y: 0.29901966, z: -0.085656315}

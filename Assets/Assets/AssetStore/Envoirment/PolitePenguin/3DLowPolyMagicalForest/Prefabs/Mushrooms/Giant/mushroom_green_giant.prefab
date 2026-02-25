@@ -49,12 +49,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b98e54aa0584e3346a9401d9bc46736b, type: 2}
     - target: {fileID: 919132149155446097, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
       propertyPath: m_Name
       value: mushroom_green_giant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62,15 +66,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2129566065010448673}
+      addedObject: {fileID: -2360207704865293552}
   m_SourcePrefab: {fileID: 100100000, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
 --- !u!1 &3340032047141223884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
   m_PrefabInstance: {fileID: 2493662284346867869}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &2129566065010448673
-MeshCollider:
+--- !u!65 &-2360207704865293552
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -87,7 +91,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 17181270820123074, guid: ff47a6db6002a874a924d81f7ca2d14a, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.7219997, y: 3.5, z: 0.9380002}
+  m_Center: {x: 0.0014377534, y: 1.75, z: 0.023618713}
