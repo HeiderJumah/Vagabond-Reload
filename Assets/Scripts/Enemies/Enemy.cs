@@ -583,6 +583,11 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
+        if(enemyType.enemyCategory == EnemyCategory.TestDummy)
+        {
+            // test dummy does not move or attack, it just stands still
+            return;
+        }
         if (!playerActions.IsAlive)
         {
             ReturnToSpawn();

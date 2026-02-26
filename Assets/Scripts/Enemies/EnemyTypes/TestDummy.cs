@@ -6,4 +6,5 @@ public class TestDummy : Enemy
     {
         // Test dummy does not move or attack, it just stands still
     }
+
 }
