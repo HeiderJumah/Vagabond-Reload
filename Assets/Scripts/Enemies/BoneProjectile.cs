@@ -30,7 +30,7 @@ public class BoneProjectile : MonoBehaviour
         // spawn aoe indicator, slightly transparent, shows full aoe attack area
         if(aoeDecal != null )
         {
-            Vector3 spawnPos = endPos + Vector3.up * 1f;
+            Vector3 spawnPos = endPos + Vector3.up * 0.9f;
             Quaternion spawnRotation = Quaternion.Euler(90f, 0f, 0f);
             activeDecal = Instantiate(aoeDecal, spawnPos, spawnRotation);
             activeDecal.transform.localScale = new Vector3(aoeRadius * 2f, aoeRadius * 2f, 1f);
@@ -38,7 +38,7 @@ public class BoneProjectile : MonoBehaviour
         // spawn aoe timing indicator, better visible second circle that expands to the full size over time, showing the exact moment of aoe damage
         if(aoeTimerDecal != null )
         {
-            Vector3 spawnPos = endPos + Vector3.up * 1f;
+            Vector3 spawnPos = endPos + Vector3.up * 0.9f;
             Quaternion spawnRotation = Quaternion.Euler(90f, 0f, 0f);
             activeTimerDecal = Instantiate(aoeTimerDecal, spawnPos, spawnRotation);
 

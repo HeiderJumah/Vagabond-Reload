@@ -635,6 +635,12 @@ public class PlayerActions : MonoBehaviour
 
         // account enemies knockback resistance 
         float forceAdjustment = force / playerStats.knockbackResist;
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, knockbackDirection, out raycastHit, forceAdjustment))
+        {
+            // if raycast hits an obstacle, adjust knockback distance to stop at the obstacle
+            forceAdjustment = raycastHit.distance - 0.1f;
+        }
         Vector3 targetPostion = transform.position + knockbackDirection * forceAdjustment;
 
         // Apply smooth knockback  
