@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Golem
   m_EditorClassIdentifier: 
   enemyName: Golem
-  health: 5
+  health: 50
   speed: 4
   damage: 1
   attackRange: 10

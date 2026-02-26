@@ -1551,7 +1551,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4126773567544934573, guid: 08c710fe27dec7c488c1a1eab5539ab8, type: 3}
       propertyPath: sceneName
-      value: LevelThree 3
+      value: LevelThree
       objectReference: {fileID: 0}
     - target: {fileID: 4126773567544934573, guid: 08c710fe27dec7c488c1a1eab5539ab8, type: 3}
       propertyPath: levelManager

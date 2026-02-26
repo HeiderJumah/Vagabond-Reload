@@ -592,7 +592,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 679725913822916051, guid: e8bd43bfe50f8c841bf3c02e3a7d8b0f, type: 3}
       propertyPath: LevelToLoad
-      value: LevelOne 1
+      value: LevelOne
       objectReference: {fileID: 0}
     - target: {fileID: 679725913822916051, guid: e8bd43bfe50f8c841bf3c02e3a7d8b0f, type: 3}
       propertyPath: levelManager
