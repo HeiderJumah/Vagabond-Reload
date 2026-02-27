@@ -108,19 +108,19 @@ The journey cluminates in a challenging bos fight at the end of Level Three. Aft
 ## Ingame Screenshots
 
 ### Tilescreen
-![Titlescreen](ShowcaseImages/VagabondReloadedTitle.png)
+![Titlescreen](Assets/ShowcaseImages/VagabondReloadedTitle.png)
 
 ### Level One
-![Level One](ShowcaseImages/VagaBondReloadedLevel1.png)
+![Level One](Assets/ShowcaseImages/VagaBondReloadedLevel1.png)
 
 ### Level Two
-![Level Two](ShowcaseImages/VagabondReloadedLevel2.png)
+![Level Two](Assets/ShowcaseImages/VagabondReloadedLevel2.png)
 
 ### Level Three
-![Level Three](ShowcaseImages/VagabondReloadedLevel3.png)
+![Level Three](Assets/ShowcaseImages/VagabondReloadedLevel3.png)
 
 ### Test Dummy Level
-![Test Dummy Level](VagabonReloadedTestArea.png)
+![Test Dummy Level](Assets/VagabonReloadedTestArea.png)
 
 ## Team:
 Heider Jumah<br>
